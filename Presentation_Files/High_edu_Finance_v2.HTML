@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기초지방자치단체 고등교육 재정지원이 지역사회 경제발전에 미치는 효과와 공간적 파급효과 탐구 · 한국교육행정학회 세대교류위원회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gowun+Dodum&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+/* ===== 디자인 토큰 : 크림 종이 위 손그림 강의 노트 ===== */
+:root{
+  --paper:#F5F2EB;--card:#FBF8F2;--ink:#32302C;--body:#4A453E;--muted:#6E675D;--header:#7A7263;
+  --terra:#C05A38;--terra-dk:#A84B2F;--terra-lt:#D98E6B;--charcoal:#3B3631;
+  --line:rgba(59,54,49,.16);--mat:#1b1916;
+  --font:'KoPub Dotum','KoPubDotum Medium','Pretendard','Gowun Dodum','Noto Sans KR',system-ui,sans-serif;
+  --hand:'Nanum Pen Script','Gaegu',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--body);background:var(--paper);overflow:hidden;-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.45),transparent 60%),radial-gradient(120% 120% at 50% 120%,rgba(120,90,60,.10),transparent 55%)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")}
+
+/* ===== 셸 · 상단바 ===== */
+.shell{position:relative;z-index:2;display:flex;flex-direction:column;height:100%}
+.topbar{display:flex;align-items:center;gap:14px;padding:11px 22px 9px;flex:0 0 auto}
+.brand{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);white-space:nowrap}
+.brand b{color:var(--ink);font-weight:400}
+.sec-now{margin-left:6px;font-size:12.5px;color:var(--terra-dk);border-left:1px solid var(--line);padding-left:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw}
+.spacer{flex:1}
+.counter{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;white-space:nowrap}
+.counter b{color:var(--ink)}
+.tbtn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--body);border-radius:10px;height:34px;padding:0 12px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:inherit;font-size:12.5px;transition:.16s;white-space:nowrap}
+.tbtn:hover{border-color:var(--terra);color:var(--terra-dk);transform:translateY(-1px)}
+.tbtn svg{width:15px;height:15px}
+.tbtn .k{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 4px;line-height:15px}
+
+/* ===== 덱 · 프레임 · 내비 화살표 ===== */
+.deck-area{flex:1;min-height:0;display:grid;place-items:center;padding:6px 10px 2px;position:relative}
+.frame{position:relative;aspect-ratio:16/9;width:min(94vw,148vh);max-height:99%;background:var(--paper);border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -22px rgba(45,32,20,.5),0 4px 14px -6px rgba(45,32,20,.3);border:1px solid rgba(59,54,49,.10);container-type:size}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),inset 0 -40px 80px -50px rgba(120,80,50,.25)}
+.nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--terra-dk);cursor:pointer;display:grid;place-items:center;transition:.18s;box-shadow:0 4px 12px -4px rgba(45,32,20,.3)}
+.nav:hover{background:var(--terra);color:#fff;transform:translateY(-50%) scale(1.08)}
+.nav:disabled{opacity:.3;cursor:default;transform:translateY(-50%)}
+.nav.prev{left:14px}.nav.next{right:14px}
+.nav svg{width:20px;height:20px}
+
+:fullscreen .deck-area{padding:0}
+:fullscreen .frame{border-radius:0;box-shadow:none;width:auto;height:100%;max-height:100%;max-width:100vw}
+:fullscreen .topbar,:fullscreen .dotbar{background:rgba(245,242,235,.85)}
+@media (max-width:680px){.sec-now{display:none}.hint{display:none}}
+@media print{@page{size:1280px 720px;margin:0}
+  .topbar,.dotbar,.nav,.overview{display:none!important}
+  .deck-area{display:block;padding:0}
+  .frame{width:1280px;height:720px;max-height:none;border-radius:0;box-shadow:none;page-break-after:always}
+  .slide{opacity:1!important;visibility:visible!important;position:relative;font-size:15.5px}
+  .slide-inner>*,.stagger>*{animation:none!important}}
+
+/* ===== 진행바 · 목차 ===== */
+.dotbar{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 22px 12px}
+.dgroup{display:flex;gap:3px;align-items:center}
+.dgroup+.dgroup{margin-left:9px;padding-left:9px;border-left:1px solid var(--line)}
+.dot{width:13px;height:5px;border-radius:3px;background:rgba(59,54,49,.18);cursor:pointer;transition:.18s;border:none;padding:0}
+.dot:hover{background:var(--terra-lt);transform:scaleY(1.5)}
+.dot.on{background:var(--terra);width:20px}
+.dot.done{background:rgba(192,90,56,.4)}
+.hint{margin-left:14px;font-size:11px;color:var(--muted);white-space:nowrap}
+.hint b{color:var(--header);font-weight:400}
+.overview{position:fixed;inset:0;z-index:50;background:rgba(34,30,26,.62);backdrop-filter:blur(6px);display:none;flex-direction:column}
+.overview.show{display:flex;animation:fade .2s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.ov-head{display:flex;align-items:center;gap:14px;padding:16px 26px;color:#f4ead9}
+.ov-head .t{font-size:17px;color:#fff}
+.ov-head .s{font-size:13px;color:#d6c9b5}
+.ov-body{flex:1;overflow:auto;padding:4px 26px 26px}
+.ov-sec{margin-bottom:18px}
+.ov-sec h4{color:#f0e3cf;font-size:12.5px;font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ov-sec h4 .b{width:8px;height:8px;border-radius:2px;background:var(--terra)}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:12px}
+.ov-card{background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:12px;aspect-ratio:16/9;padding:12px;cursor:pointer;transition:.16s;position:relative;display:flex;flex-direction:column;gap:4px;overflow:hidden;text-align:left;font-family:inherit}
+.ov-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -8px rgba(0,0,0,.5);border-color:var(--terra)}
+.ov-card.on{outline:2.5px solid var(--terra);outline-offset:1px}
+.ov-card .n{font-size:11px;color:var(--terra-dk);font-variant-numeric:tabular-nums}
+.ov-card .ttl{font-size:12.5px;color:var(--ink);line-height:1.35;flex:1;overflow:hidden}
+.ov-card .ico{position:absolute;right:9px;bottom:8px;color:rgba(192,90,56,.45)}
+.ov-card .ico svg{width:18px;height:18px}
+
+/* ===== 슬라이드 시스템 ===== */
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;padding:2.6cqw 6cqw 3.4cqw;display:flex;flex-direction:column;transition:opacity .34s ease;font-size:2.18cqw;line-height:1.45;color:var(--body);word-break:keep-all;overflow-wrap:anywhere}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto}
+.slide-inner{display:flex;flex-direction:column;gap:.5em;height:100%;min-height:0}
+.slide-inner>.eyebrow{margin-bottom:-.1em}
+.slide.active .slide-inner>*{animation:rise .5s cubic-bezier(.2,.75,.25,1) both}
+.slide.active .slide-inner>*:nth-child(1){animation-delay:.04s}
+.slide.active .slide-inner>*:nth-child(2){animation-delay:.11s}
+.slide.active .slide-inner>*:nth-child(3){animation-delay:.18s}
+.slide.active .slide-inner>*:nth-child(4){animation-delay:.25s}
+.slide.active .slide-inner>*:nth-child(5){animation-delay:.32s}
+.slide.active .stagger>*{animation:rise .5s cubic-bezier(.2,.75,.25,1) both}
+.slide.active .stagger>*:nth-child(1){animation-delay:.16s}
+.slide.active .stagger>*:nth-child(2){animation-delay:.26s}
+.slide.active .stagger>*:nth-child(3){animation-delay:.36s}
+.slide.active .stagger>*:nth-child(4){animation-delay:.46s}
+.slide.active .stagger>*:nth-child(5){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+
+.eyebrow{display:flex;align-items:center;gap:.5em;font-size:.82em;color:var(--header)}
+.eyebrow .dot{width:.5em;height:.5em;border-radius:50%;background:var(--terra);box-shadow:0 0 0 .18em rgba(192,90,56,.16)}
+.title{font-size:1.95em;line-height:1.16;color:var(--ink);font-weight:400;letter-spacing:-.01em}
+.title.sm{font-size:1.58em}
+.sub{font-size:.96em;color:var(--muted);max-width:46em}
+.lead{font-size:1.04em;color:var(--body)}
+.ink{color:var(--ink)}.tr{color:var(--terra-dk)}.mut{color:var(--muted)}
+
+/* ===== 손그림 장식 ===== */
+.ul{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3,9 C50,4 100,12 150,7 C175,4.5 190,9 197,8' fill='none' stroke='%23A84B2F' stroke-width='3.6' stroke-linecap='round'/%3E%3Cpath d='M6,13 C60,11 110,14.5 160,11 C180,9.6 192,12 196,12' fill='none' stroke='%23D98E6B' stroke-width='2' stroke-linecap='round' opacity='.85'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:0 1.05em;background-size:100% .42em;padding-bottom:.18em}
+.circ{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 92' preserveAspectRatio='none'%3E%3Cpath d='M34,12 C96,2 182,4 206,30 C221,49 192,78 118,85 C52,91 7,76 7,47 C7,24 64,10 152,15' fill='none' stroke='%23C05A38' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:108% 150%;padding:0 .35em;color:var(--ink)}
+.hand{font-family:var(--hand);color:var(--terra);font-size:1.85em;line-height:1;transform:rotate(-3deg);align-self:flex-start}
+.hand.r{transform:rotate(2.5deg)}
+
+/* ===== 손그림 카드 · 그리드 ===== */
+.cards{display:grid;gap:1.1em;min-height:0;align-content:center}
+.cols-2{grid-template-columns:1fr 1fr}
+.cols-3{grid-template-columns:1fr 1fr 1fr}
+.cols-4{grid-template-columns:repeat(4,1fr)}
+.grow{flex:1;min-height:0}
+.sk-card{position:relative;background:var(--card);border:2px solid var(--charcoal);border-radius:16px 13px 17px 12px;padding:.95em 1.1em;display:flex;flex-direction:column;gap:.38em;box-shadow:.18em .26em 0 rgba(59,54,49,.10)}
+.sk-card::after{content:"";position:absolute;inset:3px 4px 5px 3px;border:1px solid rgba(59,54,49,.22);border-radius:13px 16px 11px 15px;pointer-events:none}
+.sk-card.accent{border-color:var(--terra-dk)}
+.sk-card.accent::after{border-color:rgba(168,75,47,.3)}
+a.sk-card{text-decoration:none;color:inherit;cursor:pointer}
+a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54,49,.2);transition:transform .14s,box-shadow .14s}
+.sk-card .lab{font-size:1.02em;color:var(--ink);display:flex;align-items:center;gap:.5em}
+.sk-card .desc{font-size:.84em;color:var(--body);line-height:1.42}
+.sk-card .big{font-family:var(--hand);font-size:1.7em;color:var(--terra);line-height:1}
+.sk-card .ko{font-size:.74em;color:var(--muted)}
+
+.ic{width:1.95em;height:1.95em;flex:0 0 auto;border-radius:9px;border:1.6px solid var(--terra-dk);color:var(--terra-dk);display:grid;place-items:center;background:rgba(192,90,56,.07)}
+.ic svg{width:1.15em;height:1.15em}
+.ic.ink{border-color:var(--charcoal);color:var(--charcoal);background:rgba(59,54,49,.05)}
+
+/* ===== 칩 · 노트 · 스트립 ===== */
+.chip{display:inline-flex;align-items:center;gap:.4em;font-size:.76em;background:rgba(59,54,49,.06);border:1px solid var(--line);border-radius:8px;padding:.25em .6em;color:var(--body);white-space:nowrap}
+.chip.tr{background:rgba(192,90,56,.1);border-color:rgba(192,90,56,.3);color:var(--terra-dk)}
+.chip.code{font-family:'Consolas','Courier New',monospace;background:#2b2824;color:#f3ead9;border:none}
+.chips{display:flex;flex-wrap:wrap;gap:.5em;align-items:center}
+.note{font-size:.77em;color:var(--muted);background:rgba(192,90,56,.06);border-left:3px solid var(--terra);border-radius:0 8px 8px 0;padding:.45em .75em}
+.strip{font-size:.82em;color:var(--body);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.5em .85em;text-align:center}
+.strip b{color:var(--terra-dk);font-weight:400}
+
+/* ===== 통계 큰 숫자 ===== */
+.stat{display:flex;flex-direction:column;gap:.05em}
+.stat .v{font-family:var(--hand);font-size:1.7em;color:var(--terra);line-height:1}
+.stat .l{font-size:.7em;color:var(--muted)}
+
+/* ===== 2컬럼 미디어 ===== */
+.media{flex:1;min-height:0;display:flex;gap:1.1em;align-items:stretch}
+.col-txt{display:flex;flex-direction:column;gap:.5em;justify-content:center}
+
+/* ===== 프로세스 흐름 ===== */
+.flow{display:flex;align-items:stretch;gap:.4em;flex-wrap:wrap;justify-content:center}
+.step{flex:1 1 0;min-width:0;background:var(--card);border:1.6px solid var(--line);border-radius:11px;padding:.5em .45em;text-align:center;font-size:.78em;color:var(--body);display:flex;flex-direction:column;gap:.15em;justify-content:center;position:relative}
+.step .t{font-size:.66em;color:var(--header)}
+.step .d{font-size:.66em;color:var(--muted)}
+.step.llm{border-color:rgba(192,90,56,.45);background:rgba(192,90,56,.07)}
+.step.human{border-color:var(--charcoal);background:rgba(59,54,49,.06);color:var(--ink)}
+.harw{width:1.5em;flex:0 0 auto;align-self:center;color:var(--terra)}
+
+/* ===== 표지 · Q&A ===== */
+.cover{align-items:flex-start;justify-content:center;gap:.2em}
+.cover .big-t{font-size:3.3em;line-height:1.12;color:var(--ink);font-weight:400;letter-spacing:-.02em}
+.cover .sub-t{font-size:1.15em;color:var(--terra-dk);margin-top:.5em;max-width:26em;line-height:1.4}
+.cover .meta{display:flex;gap:1.4em;font-size:.92em;color:var(--muted);margin-top:1.3em;align-items:center}
+.cover .meta b{color:var(--ink);font-weight:400}
+.cover .note-alt{font-size:.62em;color:var(--muted);margin-top:1.6em;max-width:40em;line-height:1.5}
+.qa{align-items:center;justify-content:center;text-align:center}
+.qa .big-t{font-size:4.6em;font-family:var(--hand);color:var(--terra);line-height:1}
+
+/* ===== 결과표(회귀계수) ===== */
+.rtable{width:100%;border-collapse:collapse;font-size:.72em;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 22px -12px rgba(45,32,20,.35)}
+.rtable thead th{background:rgba(59,54,49,.05);color:var(--header);font-weight:400;text-align:left;padding:.42em .9em;border-bottom:1px solid var(--line);white-space:nowrap}
+.rtable tbody th[scope=row]{padding:.34em .9em;border-top:1px solid var(--line);color:var(--ink);font-weight:400;text-align:left}
+.rtable tbody td{padding:.34em .9em;border-top:1px solid var(--line);color:var(--body)}
+.rtable .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rtable tr.sig{background:rgba(192,90,56,.09)}
+.rtable tr.sig th[scope=row]{color:var(--terra-dk)}
+.rtable .star{color:var(--terra-dk);font-weight:700;font-size:.9em}
+.rtable .pos{color:#2E7D4E}
+.rtable .neg{color:#A84B2F}
+.rtable tfoot td{padding:.32em .9em;font-size:.84em;color:var(--muted);border-top:1px solid var(--line);text-align:left}
+
+/* ===== 인라인 SVG 차트 ===== */
+.chart{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 22px -12px rgba(45,32,20,.35);padding:.7em .9em .5em;display:flex;flex-direction:column;min-height:0}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart .clab{font-size:.72em;color:var(--header);margin-bottom:.2em}
+.c-axis{stroke:#3B3631;stroke-opacity:.55;stroke-width:1.6;stroke-linecap:round}
+.c-grid{stroke:var(--line);stroke-width:1}
+.c-zero{stroke:#3B3631;stroke-width:1.5;stroke-dasharray:4 4;opacity:.7}
+.c-bar{fill:#C05A38}
+.c-bar.alt{fill:#3B3631}
+.c-bar.lt{fill:#D98E6B}
+.c-dot{fill:#C05A38}
+.c-ci{stroke:#D98E6B;stroke-width:2.4;stroke-linecap:round}
+.c-tick{fill:#6E675D;font-size:9px;font-family:var(--font)}
+.c-val{fill:#32302C;font-size:9px;font-family:var(--font);font-variant-numeric:tabular-nums}
+.c-emph{fill:#C05A38;font-family:'Nanum Pen Script',cursive;font-size:16px}
+
+/* ===== 표/그림 출처 캡션 ===== */
+.figcap{font-size:.62em;color:var(--muted);line-height:1.45;margin-top:.4em;text-align:left}
+.figcap b{color:var(--header);font-weight:400}
+.figcap .src{color:var(--terra-dk)}
+
+/* ===== 연구모형 다이어그램 ===== */
+.model{display:flex;align-items:center;justify-content:center;gap:.15em;flex-wrap:wrap;padding:.3em 0}
+.node{position:relative;background:var(--card);border:1.8px solid var(--charcoal);border-radius:12px 10px 13px 9px;padding:.5em .9em;text-align:center;font-size:.82em;color:var(--ink);box-shadow:.14em .2em 0 rgba(59,54,49,.10);max-width:11em}
+.node .nt{font-size:.68em;color:var(--header);display:block}
+.node .nd{font-size:.66em;color:var(--muted)}
+.node.dv{border-color:var(--terra-dk);background:rgba(192,90,56,.06)}
+.node.dv .nt{color:var(--terra-dk)}
+.node.mod{border-style:dashed;font-size:.74em;padding:.35em .7em}
+.marw{width:2.6em;flex:0 0 auto;align-self:center;color:var(--terra)}
+.mod-wrap{display:flex;flex-direction:column;align-items:center;gap:.1em}
+.mod-down{width:1.4em;color:var(--terra);transform:rotate(90deg)}
+
+/* ===== 연구 흐름 타임라인 ===== */
+.journey{position:relative;display:flex;align-items:stretch;gap:0;padding:1.2em .4em .4em}
+.journey::before{content:"";position:absolute;left:8%;right:8%;top:1.6em;height:.4em;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3,9 C50,4 100,12 150,7 C175,4.5 190,9 197,8' fill='none' stroke='%23D98E6B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-size:100% 100%;pointer-events:none}
+.jstage{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:.28em;padding:0 .6em;text-align:center}
+.jstage .jdot{width:.95em;height:.95em;border-radius:50%;background:var(--terra);box-shadow:0 0 0 .22em rgba(192,90,56,.16);position:relative;z-index:1}
+.jstage .jyear{font-family:var(--hand);font-size:1.5em;color:var(--terra);line-height:1}
+.jstage .jttl{font-size:.9em;color:var(--ink)}
+.jstage .jdesc{font-size:.72em;color:var(--muted);line-height:1.42}
+.jstage.now .jdot{background:var(--terra-dk);box-shadow:0 0 0 .28em rgba(192,90,56,.24)}
+
+/* ===== 신규 유틸 : 히트맵 · 큰 인용 · 스와치 ===== */
+.heat{width:100%;border-collapse:separate;border-spacing:.18em;font-size:.62em}
+.heat thead th{font-weight:400;color:var(--header);padding:.3em .4em;text-align:center;white-space:nowrap}
+.heat td.rl{text-align:left;color:var(--ink);white-space:nowrap;padding:.32em .5em;background:rgba(59,54,49,.04);border-radius:6px}
+.heat td.c{text-align:center;border-radius:6px;font-variant-numeric:tabular-nums;padding:.32em .3em;color:var(--ink);white-space:nowrap}
+.heat td.pos{background:rgba(46,125,78,.16);color:#1f5c38}
+.heat td.pos.s3{background:rgba(46,125,78,.30)}
+.heat td.neg{background:rgba(168,75,47,.20);color:#7a3320}
+.heat td.neg.s3{background:rgba(168,75,47,.34)}
+.heat td.ns{background:rgba(59,54,49,.07);color:var(--muted)}
+.heat .star{color:inherit;font-weight:700;font-size:.9em}
+.heat tr.hl td.rl{color:var(--terra-dk);font-weight:700}
+.sw{display:inline-block;width:.8em;height:.8em;border-radius:3px;vertical-align:-1px;flex:0 0 auto}
+.bigquote{position:relative;font-size:1.16em;line-height:1.62;color:var(--ink);padding:.15em 0 .15em 1.05em;max-width:31em;border-left:.18em solid var(--terra);word-break:keep-all}
+.bigquote .qm{font-family:var(--hand);color:var(--terra-lt);font-size:2.6em;line-height:0;position:absolute;left:.12em;top:.55em}
+
+/* ===== 오버플로 완화(밀도 축소) · .cmp 지정 슬라이드 전용, 정상 슬라이드 불변 ===== */
+.slide.cmp{font-size:2.0cqw}
+.slide.cmp .slide-inner{gap:.4em}
+.slide.cmp .title.sm{font-size:1.4em}
+.slide.cmp .sub{font-size:.9em}
+.slide.cmp .sk-card{padding:.6em .8em;gap:.22em;border-radius:14px 11px 15px 10px}
+.slide.cmp .sk-card::after{inset:3px 4px 4px 3px}
+.slide.cmp .sk-card .lab{font-size:.92em}
+.slide.cmp .sk-card .desc{font-size:.72em;line-height:1.26}
+.slide.cmp .cards{gap:.7em;align-content:stretch}
+.slide.cmp .note{font-size:.72em;padding:.4em .65em}
+.slide.cmp .figcap{font-size:.6em;margin-top:.25em}
+.slide.cmp .strip{font-size:.78em;padding:.42em .8em}
+.slide.cmp .media{gap:.85em}
+.slide.cmp .col-txt{justify-content:flex-start}
+.slide.cmp .heat{font-size:.54em}
+.slide.cmp .heat thead th{padding:.22em .3em}
+.slide.cmp .heat td.c,.slide.cmp .heat td.rl{padding:.22em .28em}
+.slide.cmp .chart{padding:.5em .7em .35em}
+.slide.cmp .chart .clab{font-size:.66em;margin-bottom:.1em}
+</style>
+</head>
+<body>
+
+<!-- ===== SVG defs : 손떨림 필터 + 아이콘 스프라이트 ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="rough" x="-5%" y="-30%" width="110%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="0.018 0.03" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.4"/></filter>
+  <symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="ic-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="4" r="2.5"/><circle cx="18" cy="16" r="2.5"/><path d="M8.5 4H14a4 4 0 0 1 0 8h-4a4 4 0 0 0 0 8"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-12"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h8l5 5V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1Z"/><path d="M14 2.5v5h5M8.5 13h7M8.5 16.5h7"/></symbol>
+  <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 4h6v15H6a2 2 0 0 0-2 1.5Z"/><path d="M20 5.5A2 2 0 0 0 18 4h-6v15h6a2 2 0 0 1 2 1.5Z"/></symbol>
+  <symbol id="ic-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5a2.5 2.5 0 0 0-2.5 2.5A2.5 2.5 0 0 0 5 12a2.5 2.5 0 0 0 1.5 4.5A2.5 2.5 0 0 0 9 19a2.5 2.5 0 0 0 3-2.5V7.5A2.5 2.5 0 0 0 9 5Z"/><path d="M15 5a2.5 2.5 0 0 1 2.5 2.5A2.5 2.5 0 0 1 19 12a2.5 2.5 0 0 1-1.5 4.5A2.5 2.5 0 0 1 15 19a2.5 2.5 0 0 1-3-2.5"/></symbol>
+  <symbol id="ic-q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.2c0-1.5 1.2-2.4 2.6-2.4s2.5.9 2.5 2.3c0 2-2.5 2.2-2.5 3.9"/><path d="M12 16.4v.01"/></symbol>
+  <symbol id="ic-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="ic-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.7c0-1.3 1.1-2 2.5-2s2.5.8 2.5 2-1.1 1.8-2.5 1.8-2.5.6-2.5 1.9 1.1 2 2.5 2 2.5-.7 2.5-2"/></symbol>
+  <symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4Z"/><path d="M9 4v13M15 6.5v13"/></symbol>
+  <symbol id="ic-growth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 11l4 4 6-8"/><path d="M20 7h-4M20 7v4"/></symbol>
+</defs></svg>
+
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">한국교육행정학회 세대교류위원회 · <b>고등교육 거버넌스</b></div>
+    <div class="sec-now" id="secNow">시작</div>
+    <div class="spacer"></div>
+    <div class="counter"><b id="curN">1</b> / <span id="totN">00</span></div>
+    <button class="tbtn" id="ovBtn" title="전체 슬라이드 보기 (O)"><svg><use href="#ic-grid"/></svg> 전체보기 <span class="k">O</span></button>
+  </header>
+
+  <div class="deck-area">
+    <button class="nav prev" id="prevBtn" aria-label="이전"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="frame" id="deck">
+
+      <!-- ============ 슬라이드 1 · 표지 ============ -->
+      <section class="slide active" data-sec="0" data-title="표지" data-ico="ic-doc">
+        <div class="slide-inner cover">
+          <div class="eyebrow"><span class="dot"></span> 한국교육행정학회 세대교류위원회 · 고등교육 거버넌스</div>
+          <h1 class="big-t" style="font-size:2.3em">기초지방자치단체 고등교육 재정지원이<br>지역사회 경제발전에 미치는 효과와<br><span class="circ">공간적 파급효과</span> 탐구</h1>
+          <p class="sub-t">학위논문과 후속 확장연구를 중심으로</p>
+          <div class="meta">
+            <span><b>26.07.25</b> (SAT)</span>
+            <span style="color:var(--line)">|</span>
+            <span><b>박동찬</b> · 한국직업능력연구원</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 2 · 연구수행 개요(목차) ============ -->
+      <section class="slide" data-sec="0" data-title="연구수행 개요" data-ico="ic-route">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구수행 개요</div>
+          <h2 class="title sm">세 단계로 이어진 <span class="ul">실증 연구</span></h2>
+          <p class="sub">기초지자체의 소규모 재정지원의 효과가 존재하는지, 영향은 어떠한지, 인접지역으로 파급이 되는지에 대한 실증분석 시도</p>
+          <div class="journey grow">
+            <div class="jstage">
+              <span class="jdot"></span><span class="jyear">2024</span>
+              <span class="jttl">박사학위논문</span>
+              <span class="jdesc">기초지자체 재정지원, 대학의 교육·연구기능, 지역사회 경제발전 (패널 GLS)</span>
+            </div>
+            <div class="jstage">
+              <span class="jdot"></span><span class="jyear">2024</span>
+              <span class="jttl">후속 게재논문</span>
+              <span class="jdesc">4년제/전문대 비교 (교육재정경제연구 33(3))</span>
+            </div>
+            <div class="jstage now">
+              <span class="jdot"></span><span class="jyear">2025</span>
+              <span class="jttl">공간계량 확장</span>
+              <span class="jdesc">공간적 파급효과 검토 · 공간더빈모형(SDM) (교육재정경제연구 34(2))</span>
+            </div>
+          </div>
+          <div class="figcap"><b>자료:</b> 발표자 연구수행 개요(저자 작성).</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 3 · 문제의식① 이중 위기 ============ -->
+      <section class="slide" data-sec="1" data-title="이중 위기: 대학과 지역" data-ico="ic-map">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 문제의식 ① · 동반 위기</div>
+          <h2 class="title sm">대학과 지역은 <span class="circ">같은 위기</span>에 직면</h2>
+          <div class="cards cols-3 grow stagger">
+            <div class="sk-card"><div class="stat"><span class="v">118곳 · 52%</span><span class="l">소멸위험지역, 전국 시군구의 절반 · 소멸고위험 51곳 (2023년 2월 기준)</span></div></div>
+            <div class="sk-card"><div class="stat"><span class="v">27.5만 명</span><span class="l">2020년 출생자 수, 사망자 수 아래로 (인구 데드크로스)</span></div></div>
+            <div class="sk-card accent"><div class="stat"><span class="v">28.3만 명</span><span class="l">2040년 대학 입학가능인원 추계 · 2020~24년 이미 7.1만 명 감소</span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">소멸위험지수 = 20~39세 여성 ÷ 65세 이상</span>
+            <span class="chip">전북 92.9%</span>
+            <span class="chip">부산 43.8%</span>
+            <span class="chip">수도권도 포함</span>
+            <span class="chip">인구감소지역 89개(38.9%, 2021)</span>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). 기초지방자치단체 고등교육 재정지원과 대학의 교육·연구 기능이 지역사회 경제적 발전에 미치는 영향. 충북대학교 박사학위논문. &lt;표 Ⅱ-1&gt; 재구성(원자료: 한국고용정보원, 2023:112). 입학가능인원은 대학교육연구소(2022) 추계.</div>
+          <div class="strip">소멸위험은 특정 지방에 국한되지 않고 <b>전국 시군구의 절반</b>에 해당, 대학의 위기와 지역의 위기가 서로 맞닿아 있음</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 4 · 문제의식② 기초지자체의 부상 ============ -->
+      <section class="slide cmp" data-sec="1" data-title="기초지자체 재정지원의 부상" data-ico="ic-coin">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 문제의식 ② · 재정지원의 급증</div>
+          <h2 class="title sm">5년간 약 <span class="ul">2.9배</span> 증가, 그러나 재정지원의 효과에 대한 실증 연구는 부족</h2>
+          <div class="media grow">
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+              <div class="chart" style="flex:1;min-height:0">
+                <div class="clab">재정지원 유무 시퀀스 (281개 대학, 2016~2020 · 하늘색=지원 있음)</div>
+                <img src="data:image/png;base64,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29IYrCaMllH////flsaApGxbGgOy9DasLro9wYrBygo5UP7/////9gRSAga7yf////9/e4IVkhNuT7BCUohb12ADZFX8o4B0wMDAwDAo2m3b0pCSLQTcRssS29IYGDAUwQB2yW2QFA+l4ADd5P//////fxuSV25PQMmaaFwouD3BisEqLc2KwQpuDNSO2xOwqUcDqIqgOuFgWxoDMQBhAARsS4MLwZlwBgRsI89kCNiWxpC27TZSyN2G+gJGQ8C2NAwDbk9ABNQ2NM/+//8fLgil4OA2kmX///+/PcGKARdI24ahGxVsS2OAARRV25B1bUMowgfSUL03CmgOmg68bBr4dtu2NIy4v42aRP9vS2NgwFAEA9glt0FSIJSCA3ST////////7QlWDFajZRQDpskQsC2NYbSMYmBgYGBIQ/UenQAZFf8oIAcwMDAwDHy7bVsaWkr9//////+3UbMEBtiWRiB1bkOkdyTmf6wm354Az7fb0pCS/e0JyBkeAm5PsIKoQFa5DWLD7QmY6jEAqqJthPxBHEAyBsZEtQcFbIM4FwLwqIOB27Ag25YGU3obqgtGEwW2IdsLAUhCSMz////fhtmJBaCq/P8fm8goGC6g6cDLpgFut21LGy2jKAZIxsCYqPaggG0Q50IAHnUwcBsWZNvSYEpvQ3XBaKLANmR7IQBJCIn5////2zA7sQBUlf//YxMZXoDUin8UkAkYGBgYBrbddnuCFQP2LHUbT5b4/////21p2PVBwLY01HJ2WxrCGgyTkSX///9/ewK8gLw9AT3Db0tjQChGcLZBsiSmeiyAKEX////flsaABqwm3P6PA2xDBAcSExfYloZkFkH3oKiGcWC6YDQm2Ibhfgx129JQPbUtDaHoNno0IYFtUEf835bGAAcQESwA2aRtaXB1SEwkcHuCFQMOAHPZKKAvaDrwsmkA2223J1jhiPvbSAkLG9iGNyduS0NNs9vSENZgmIws+f///9sTRssoFICiGsaB6YLRmGAbhvsx1G1LQ/XUtjSEotvo0YQEtkEd8X9bGgMcQERwg22o4YLD/NsTrBhwAGTd9AakVPyjgALAwMDAMIDttm1peNLZbexJFg62peHWuy0NSwaBC6KafHsCvAREAJja2xNQM/ztCWiKYQJQDbcnoKrHCohRdHuCFZaw2ZaGM+dvQwQHEhMT3J5gxYALYNe1LQ3NTojA7QkQX8BoVLAtDYt56ILb0hisUEz+/x9J8DZKNEHBbYhtcEVwgCmCALeRTEJSh8REArchNqADHMKjgA6g6cDLpoFqt21LY8Ad77eREhY2sA1PTtyGLfXBBVFNvj3BigGJCwEwtbcnoKbM2xPQFMMEoBpuT0BVjxUQo+j2BCssYbMtbbSMsmJII7WMgoDbE6xQlGxLQ3EMDNyeYEWCMN0A0RX/KKAMMNAG/KcGuI2SJbalMRADiEq1qCbjBbeJzQnbIFkSu/ptJDseuzn////fhlrebSPZZFwAp424AEwDjEYB2yDBgQGwKsYBbmOLptskGAAHtyeg1ANQU7elIdhI4PYErDbgEB4FdABNB17SAv2nGNxGSaLb0hiIAUSlIlST8YLbxKbMbZBMiV39NpIdj92c////bxsto4g2ABVsS2NIS0M46/YEK6u0NOJtwCFMN0Cdin8UEAQMtAH/qQFuT8CSYKkCSDD5NrE5YRsktxGtnhC4PcEKsyi7PcEKW0uDKuD2BBJdDtMAo1HBtjQGTPdjFcQJbmOLpttYbSMAbiOZtA0RUVYTbm9Lw3DQ7QlYbcAhPAroAJoOvKQF+k8xuI2UsKgLSDD5NrEpcxsi6ROlnhC4PcEKI/dABK0mEOd0EsHtCSS6HKYBRqOCbWlYiiOsgjjBbWzRdBurbQTBtjSoxbcnWDEwpE2YYAUJx9sTMIzDIvT/P05hugHqVPyjYEiD29iyBFUACSbfJjYnbKNymfj/////29IY0IDVBOKcTQYg2eUwDTAaE2C6H7s6HOA2tmi6PcGKASfAVA4B2DTBnbItDYnzH7tiKEBWNgpGwf/b2JIoVQAJJt+egCsDooFto2UUBsB0P3Z1OMBtbNF0ewLOEgRX8NyeYIVi8+0JVsgq0bj/b0+wYsABkAyhOxhtt42CUTAKRsEoGAWjYBQMDTDabhsFo2AUjIJRMApGwSgYGmC03TYKRsEoGAWjYBSMglEwNMBou20UjIJRMApGwSgYBaNgaIDRdtsoGAWjYBSMglEwCkbB0ACj7bZRMApGwSgYBaNgFIyCoQFG222jYBSMglEwCkbBKBgFQwOMtttGwSgYBaNgFIyCUTAKhgYYbbeNglEwCkbBKBgFo2AUDA0w2m4bBaNgFIyCUTAKRsEoGBpgtN02CkbBKBgFo2AUjIJRMDTAaLttFIyCUTAKRsEoGAWjYGiA0XbbKBgFo2AUjIJRMApGwdAAo+22UTAKRsEoGAWjYBSMgqEBRttto2AUjIJRMApGwSgYBUMDjLbbRsEoGAWjYBSMglEwCoYGGG23jYJRMApGwSgYBaNgFAwNMNpuGwWjYBSMglEwCkbBKBgaYLTdNgpGwSgYBaNgFIyCUTA0wGi7bRSMglEwCkbBKBgFo2BogNF22ygYBaNgFIyCUTAKRsHQAKPttlEwCkbBKBgFo2AUjIKhAUbbbaNgFIyCUTAKRsEoGAVDA4y220bBKBgFo2AUjIJRMAqGBhhtt42CUTAKRsEoGAWjYBQMDTDabhsFo2AUjIJRMApGwSgYGmC03TYKRsEoGAWjYBSMglEwNMBou20UjIJRMApGwSgYBaNgaIDRdtsoGAWjYBSMglEwCkbB0ACj7bZRMApGwSgYBaNgFIyCoQFG222jYBSMglEwCkbBKBgFQwOMtttGwSgYBaNgFIyCUTAKhgYYbbeNglEwCkbBKBgFo2AUDA0w2m4bBaNgFIyCUTAKRsEoGBpgtN02CkbBKBgFo2AUjIJRMDQAAOHbzomXm9GkAAAAAElFTkSuQmCC" alt="기초지방자치단체 고등교육 재정지원 유무 시퀀스 그래프" style="flex:1 1 0;min-height:0;width:100%;object-fit:contain;border-radius:6px">
+              </div>
+            </div>
+            <div class="col-txt" style="flex:0 0 40%">
+              <div class="stat"><span class="v">168 → 204개</span><span class="l">참여 기초지자체 (73.4% → 89.1%) · 중앙 대비 1.0% → 2.5% (경상운영비 제외)</span></div>
+              <div class="chart" style="padding:.5em .6em .4em;flex:0 0 auto">
+                <div class="clab">재정지원 총액 (억원): 922.2 → 2,702.8 (×2.9)</div>
+                <svg viewBox="0 0 300 170" role="img" aria-label="기초지자체 재정지원 총액 막대차트" style="width:100%;height:2.4em;flex:0 0 auto">
+                  <line class="c-axis" x1="60" y1="140" x2="292" y2="140" filter="url(#rough)"/>
+                  <rect class="c-bar alt" x="90" y="99" width="62" height="41" rx="2"/>
+                  <text class="c-val" x="121" y="93" text-anchor="middle">922.2</text>
+                  <text class="c-tick" x="121" y="155" text-anchor="middle">2016년</text>
+                  <rect class="c-bar" x="190" y="20" width="62" height="120" rx="2"/>
+                  <text class="c-val" x="221" y="14" text-anchor="middle">2,702.8</text>
+                  <text class="c-tick" x="221" y="155" text-anchor="middle">2021년</text>
+                  <text class="c-emph" x="171" y="66" text-anchor="middle">×2.9</text>
+                </svg>
+              </div>
+              <div class="note">중앙 규모는 12조5,451억 → 15조5,967억(24.3%↑). 기초는 중앙의 1~2.5% 수준이나 거의 모든 지자체가 참여.</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">시·도별 급증(’16→’21):</span>
+            <span class="chip tr">대전 901%</span><span class="chip tr">울산 595%</span><span class="chip tr">인천 594%</span>
+            <span class="chip">광주 523%</span><span class="chip">전남 435%</span><span class="chip">서울 354%</span>
+            <span class="chip">수혜 편중: 수도권 802.4억(29.7%)</span>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅱ-3&gt;·&lt;표 Ⅱ-4&gt;·&lt;표 Ⅱ-6&gt; 재구성(원자료: 대학재정알리미, 2023.07.20). 시퀀스 그래프: 박동찬·나민주(2024). 교육재정경제연구, 33(3), 37-64. [그림 1].</div>
+          <div class="strip">중앙의 1~2.5% 수준인 소규모 재정지원이 3배 가까이 증가, 89%가 참여. 그러나 <b>기초지자체 수준의 효과 연구는 매우 부족</b>, 본 연구의 출발점</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 5 · (선택) 대학집적의 역설 ============ -->
+      <section class="slide" data-sec="1" data-title="예비 분석: 소재 대학 수별 차이" data-ico="ic-chart">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 문제의식 ③ · 예비 분석 (ANOVA)</div>
+          <h2 class="title sm">재정지원 효과 분석 전, 소재 대학 수별로 <span class="circ">종속변수의 차이</span> 유무 검토</h2>
+          <p class="sub">소재 대학 수별 지역경제 지표 비교(ANOVA, 2016년 기준). 단순 비교만으로는 순효과 파악이 어려움</p>
+          <div class="grow" style="display:flex;flex-direction:column;justify-content:center">
+            <table class="rtable">
+              <thead><tr><th>지역경제 지표</th><th class="num">대학 0개</th><th class="num">1~3개</th><th class="num">4개+</th><th class="num">F</th><th>사후검정</th></tr></thead>
+              <tbody>
+                <tr class="sig"><th scope="row">1인당 GRDP(원)</th><td class="num">4,175,168</td><td class="num">6,878,029</td><td class="num">14,564,898</td><td class="num">21.12<span class="star">***</span></td><td>4개+&gt;나머지</td></tr>
+                <tr><th scope="row">고용률(%)</th><td class="num">67.1</td><td class="num">62.3</td><td class="num">59.4</td><td class="num">31.86<span class="star">***</span></td><td>0개&gt;1~3&gt;4개+</td></tr>
+                <tr><th scope="row">실업률(%)</th><td class="num">1.4</td><td class="num">2.1</td><td class="num">2.8</td><td class="num">18.45<span class="star">***</span></td><td>4개+&gt;1~3&gt;0개</td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="6">*** p&lt;.01, ** p&lt;.05, * p&lt;.1</td></tr></tfoot>
+            </table>
+            <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅲ-9&gt;~&lt;표 Ⅲ-11&gt; ANOVA 재구성. <b>주:</b> *** p&lt;.01.</div>
+          </div>
+          <div class="strip">세 지표 모두 집단 간 유의한 차이 확인: 이후 재정지원과 대학 기능의 상호작용이 GRDP·고용률·실업률에 미치는 영향을 분석할 <b>근거 확보</b></div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 6 · [1단계] 연구 설계 ============ -->
+      <section class="slide cmp" data-sec="2" data-title="연구 설계: 투입-전환-산출" data-ico="ic-route">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 박사학위논문</div>
+          <h2 class="title sm">투입 → <span class="ul">전환</span> → 산출의 피드백 관계</h2>
+          <div class="media grow">
+            <div class="col-txt" style="flex:0 0 44%;gap:.4em">
+              <div>
+                <div class="clab" style="font-size:.72em;color:var(--header);margin-bottom:.25em">분석 자료</div>
+                <div class="chips">
+                  <span class="chip tr">281개 대학 (4년제 153 · 전문대 128)</span>
+                  <span class="chip">기초지자체 125개</span>
+                  <span class="chip">2016~2020 · 관측치 1,405</span>
+                </div>
+              </div>
+              <div>
+                <div class="clab" style="font-size:.72em;color:var(--header);margin:.4em 0 .25em">분석 방법</div>
+                <div class="chips">
+                  <span class="chip tr">패널 GLS</span><span class="chip">시차 t-1 · t-2</span>
+                  <span class="chip">학생 1인당 · 로그변환</span><span class="chip">STATA 14.1</span>
+                </div>
+              </div>
+              <div class="note"><b>이원 설계</b>: 연구문제 1~3은 재정지원 <b>총액</b>(광역·중앙 통제), 연구문제 4~6은 대학 <b>소재지</b> 기초지자체 재정지원(타 기초 추가 통제)을 분석</div>
+              <div class="chips">
+                <span class="chip">종속 3: GRDP(ln)·고용률·실업률</span>
+                <span class="chip">교육기능 6</span><span class="chip">연구기능 4</span>
+              </div>
+            </div>
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <div class="chart" style="padding:.6em .8em .45em">
+                <img src="data:image/png;base64,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" alt="연구 모형: 기초지방자치단체 고등교육 재정지원과 지역특성, 대학의 기능(교육·연구) 상호작용, 패널데이터분석(GLS)을 거쳐 대학 소재 기초지방자치단체 경제적 발전으로 이어지는 구조" style="width:100%;height:auto;border-radius:6px">
+              </div>
+              <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. [그림 Ⅲ-1] 연구 모형.</div>
+            </div>
+          </div>
+          <div class="strip">재정투입 - 전환 - 산출의 피드백 관계(박영한 외, 2005)에서 <b>전환과정인 대학의 교육·연구 기능</b>에 주목</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 7 · [1단계] 결과① 대학기능 ============ -->
+      <section class="slide cmp" data-sec="2" data-title="결과①: 재정지원 → 대학기능" data-ico="ic-chart">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 결과 ① · 재정지원 → 대학의 교육·연구 기능</div>
+          <h2 class="title sm">재정지원은 <span class="circ">대학</span>에 도움이 되었는가</h2>
+          <div class="grow" style="display:flex;flex-direction:column;justify-content:flex-start;min-height:0">
+            <table class="heat">
+              <thead><tr><th style="text-align:left">교육·연구 기능 (모형2 재정지원 계수)</th><th>총액 t-1</th><th>총액 t-2</th><th>소재지 t-1</th><th>소재지 t-2</th></tr></thead>
+              <tbody>
+                <tr><td class="rl">정원내재학생충원율</td><td class="c pos s3">.207<span class="star">***</span></td><td class="c pos s3">.199<span class="star">***</span></td><td class="c pos s3">.103<span class="star">***</span></td><td class="c ns">.052 n.s.</td></tr>
+                <tr><td class="rl">학생백명당전임교원수</td><td class="c pos">.010<span class="star">**</span></td><td class="c pos">.006<span class="star">*</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">학생1인당교육비</td><td class="c pos">.007<span class="star">**</span></td><td class="c pos s3">.014<span class="star">***</span></td><td class="c ns">.000 n.s.</td><td class="c pos">.009<span class="star">**</span></td></tr>
+                <tr><td class="rl">유지취업률</td><td class="c pos">.073<span class="star">*</span></td><td class="c pos">.100<span class="star">**</span></td><td class="c pos">.088<span class="star">*</span></td><td class="c ns">−.011 n.s.</td></tr>
+                <tr><td class="rl">학업지속률</td><td class="c pos s3">.101<span class="star">***</span></td><td class="c pos s3">.074<span class="star">***</span></td><td class="c pos s3">.060<span class="star">***</span></td><td class="c pos s3">.041<span class="star">***</span></td></tr>
+                <tr><td class="rl">인구만명당석박사졸업생수</td><td class="c pos">.013<span class="star">**</span></td><td class="c pos s3">.015<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr class="hl"><td class="rl">전임교원1인당연구비(교내)</td><td class="c ns">.009 n.s.</td><td class="c pos">.023<span class="star">*</span></td><td class="c neg s3">−.063<span class="star">***</span></td><td class="c neg s3">−.071<span class="star">***</span></td></tr>
+                <tr><td class="rl">전임교원1인당연구비(교외)</td><td class="c ns">−.005 n.s.</td><td class="c ns">.009 n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">논문실적(SCI급)</td><td class="c pos">.004<span class="star">**</span></td><td class="c pos s3">.003<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">논문실적(등재지)</td><td class="c ns">.002 n.s.</td><td class="c pos s3">.009<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c pos s3">.007<span class="star">***</span></td></tr>
+              </tbody>
+            </table>
+            <div class="chips" style="margin-top:.5em">
+              <span class="chip"><span class="sw" style="background:rgba(46,125,78,.30)"></span> 정(+)·유의</span>
+              <span class="chip"><span class="sw" style="background:rgba(168,75,47,.34)"></span> 부(−)·유의</span>
+              <span class="chip"><span class="sw" style="background:rgba(59,54,49,.10)"></span> 비유의(n.s.)</span>
+              <span class="chip tr">교내 연구비: 총액 정(+) .023*와 대비되는 소재지 음(−) −.063***/−.071***</span>
+            </div>
+            <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-1&gt;~&lt;표 Ⅳ-10&gt;(총액)·&lt;표 Ⅳ-20&gt;~&lt;표 Ⅳ-29&gt;(소재지) 재구성. <b>주:</b> 모형2(통제·광역·중앙 재정지원 투입) 재정지원 계수. *** p&lt;.01, ** p&lt;.05, * p&lt;.1, n.s.=비유의.</div>
+          </div>
+          <div class="strip">총액은 교육기능 6개 변인 모두와 논문실적(SCI급)에 정(+)·유의 - 소재지 재정지원은 유의한 변인이 적고, <b>교내 연구비는 총액과 대비되는 음(−)</b></div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 8 · [1단계] 결과② 경제발전 ============ -->
+      <section class="slide" data-sec="2" data-title="결과②: 재정지원 → 지역경제" data-ico="ic-growth">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 결과 ② · 재정지원 → 지역사회 경제발전</div>
+          <h2 class="title sm">지역경제에도 도움이 되었는가: <span class="ul">고용 지표</span>에서 일관된 효과</h2>
+          <div class="media grow">
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <table class="rtable">
+                <thead><tr><th>종속변인</th><th class="num">총액 t-1</th><th class="num">총액 t-2</th><th class="num">소재지 t-1</th><th class="num">소재지 t-2</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">1인당 GRDP(ln)</th><td class="num">.006<span class="star">**</span></td><td class="num">.002 <span class="mut">n.s.</span></td><td class="num">−.003 <span class="mut">n.s.</span></td><td class="num">−.003 <span class="mut">n.s.</span></td></tr>
+                  <tr class="sig"><th scope="row">고용률(%)</th><td class="num">.108<span class="star">***</span></td><td class="num">.060<span class="star">***</span></td><td class="num">.159<span class="star">***</span></td><td class="num">.104<span class="star">***</span></td></tr>
+                  <tr class="sig"><th scope="row">실업률(%)</th><td class="num">−.025<span class="star">***</span></td><td class="num">−.015<span class="star">**</span></td><td class="num">−.024<span class="star">***</span></td><td class="num">−.010 <span class="mut">n.s.</span></td></tr>
+                </tbody>
+                <tfoot><tr><td colspan="5">*** p&lt;.01, ** p&lt;.05, * p&lt;.1 · GRDP는 총액 t-1에서만 유의</td></tr></tfoot>
+              </table>
+              <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-11&gt;~&lt;표 Ⅳ-13&gt;(총액)·&lt;표 Ⅳ-30&gt;~&lt;표 Ⅳ-32&gt;(소재지) 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+            </div>
+            <div class="col-txt" style="flex:0 0 34%">
+              <div class="stat"><span class="v">+22,482원</span><span class="l">총액 10%↑ → 1인당 GRDP (평균 37.47백만원 기준, +0.06%)</span></div>
+              <div class="note">2019→2020년 1인당 GRDP 증가분(약 57만원)의 약 4%에 해당, '결코 작은 수치로 볼 수만은 없음'(논문 표현). 선행연구(이진권·김수진, 2018): 재정지원 1%↑당 차년도 GRDP 0.0010~0.0017%↑</div>
+            </div>
+          </div>
+          <div class="strip">고용률↑·실업률↓ 효과는 총액·소재지 모두에서 <b>일관되게 확인</b> - GRDP는 총액 t-1에서만 유의</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 9 · [1단계] 결과③ 시너지 ============ -->
+      <section class="slide cmp" data-sec="2" data-title="결과③: 시너지(상호작용)" data-ico="ic-brain">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 결과 ③ · 재정지원 × 대학기능 상호작용 (총액, 유의항만)</div>
+          <h2 class="title sm">재정지원과 대학 기능의 <span class="circ">상호작용</span>: 효과의 강화와 약화</h2>
+          <div class="cards cols-2 grow stagger">
+            <div class="sk-card accent">
+              <div class="lab"><span class="ic"><svg><use href="#ic-growth"/></svg></span> 효과를 <b class="tr">강화</b>시키는 상호작용 (+)</div>
+              <div class="desc">
+                · 유지취업률 × 재정 → GRDP <b>.001**/.001***</b>, 고용률 <b>.006**/.007**</b><br>
+                · 인구만명당석박사졸업생수 × 재정 → GRDP <b>.012***/.016***</b><br>
+                · 학업지속률 × 재정 → 고용률 <b>.018**/.030***</b><br>
+                · 전임교원1인당연구비(교외) × 재정 → 고용률 <b>.018***/.016***</b>, GRDP t-2 <b>.002**</b>, 실업률 감소 강화 <b>−.006***/−.006***</b>
+              </div>
+            </div>
+            <div class="sk-card">
+              <div class="lab"><span class="ic ink"><svg><use href="#ic-chart"/></svg></span> 효과를 <b>약화</b>시키는 상호작용 (−)</div>
+              <div class="desc">
+                · 전임교원1인당연구비(교내) × 재정 → 고용률 t-1 <b>−.028***</b>, GRDP t-2 <b>−.003***</b><br>
+                · 정원내재학생충원율 × 재정 → 고용률 t-2 <b>−.009**</b>, 실업률 감소효과 약화 <b>.003**/.004***</b><br>
+                <span class="ko" style="display:block;margin-top:.4em">재학생 충원율: 재정지원은 충원율을 높이지만, 충원율 자체는 경제지표에 부정적 - 인구변화·사회변화의 영향을 강하게 받는 변인(논문 해석)</span>
+              </div>
+            </div>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-15&gt;(GRDP)·&lt;표 Ⅳ-17&gt;(고용률)·&lt;표 Ⅳ-19&gt;(실업률) 상호작용 유의항 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+          <div class="strip"><b>유지취업률·석박사 배출·교외연구비</b>와 결합 시 효과 강화(시너지), <b>충원율·교내연구비</b>와 결합 시 약화: '전환과정'으로서 대학 기능의 역할을 실증적으로 확인</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 10 · [2단계] 검증·게재 4년제 vs 전문대 ============ -->
+      <section class="slide" data-sec="3" data-title="학교 유형별 분석: 4년제 vs 전문대" data-ico="ic-book">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 2단계 · 학교 유형별 분석 (교육재정경제연구 33(3))</div>
+          <h2 class="title sm">같은 재정지원, 유형별로 <span class="circ">상반된</span> 결과: 4년제와 전문대</h2>
+          <div class="media grow">
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <table class="rtable" style="font-size:.66em">
+                <thead><tr><th>종속(소재지 재정지원)</th><th class="num">전체</th><th class="num">4년제</th><th class="num">전문대</th></tr></thead>
+                <tbody>
+                  <tr class="sig"><th scope="row">GRDP t-1</th><td class="num">−.003 <span class="mut">n.s.</span></td><td class="num neg">−.009<span class="star">***</span></td><td class="num pos">+.007<span class="star">***</span></td></tr>
+                  <tr class="sig"><th scope="row">GRDP t-2</th><td class="num">−.003 <span class="mut">n.s.</span></td><td class="num neg">−.007<span class="star">**</span></td><td class="num pos">+.009<span class="star">***</span></td></tr>
+                  <tr><th scope="row">고용률 t-1</th><td class="num">.159<span class="star">***</span></td><td class="num">.109<span class="star">***</span></td><td class="num">.157<span class="star">***</span></td></tr>
+                  <tr><th scope="row">고용률 t-2</th><td class="num">.104<span class="star">***</span></td><td class="num">.086<span class="star">***</span></td><td class="num">.085<span class="star">**</span></td></tr>
+                  <tr><th scope="row">실업률 t-1</th><td class="num">−.024<span class="star">***</span></td><td class="num">−.031<span class="star">***</span></td><td class="num">.002 <span class="mut">n.s.</span></td></tr>
+                  <tr class="sig"><th scope="row">실업률 t-2</th><td class="num">−.010 <span class="mut">n.s.</span></td><td class="num neg">−.015<span class="star">*</span></td><td class="num pos">+.029<span class="star">***</span></td></tr>
+                </tbody>
+                <tfoot><tr><td colspan="4">*** p&lt;.01, ** p&lt;.05, * p&lt;.1</td></tr></tfoot>
+              </table>
+              <div class="figcap"><b>자료:</b> 박동찬·나민주(2024). 기초지방자치단체 고등교육 재정지원이 지역사회 경제적 발전에 미치는 영향. 교육재정경제연구, 33(3), 37-64. &lt;표 7&gt;(GRDP)·&lt;표 8&gt;(고용률)·&lt;표 9&gt;(실업률) 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+            </div>
+            <div class="col-txt" style="flex:0 0 34%">
+              <div class="stat"><span class="v">47.7% vs 38.8%</span><span class="l">졸업지역 내 취업 비율 (전문대 대 4년제)</span></div>
+              <div class="note">전문대 실업률 t-2 상승(+.029***): 비경제활동인구가 구직활동 재개로 경제활동인구에 재분류될 때 나타날 수 있어 <b>해석에 주의 필요</b>(논문)</div>
+              <div class="figcap">자료: 취업통계연보(교육부·한국교육개발원, 2021). 박동찬·나민주(2024), 33(3), 37-64에서 재인용.</div>
+            </div>
+          </div>
+          <div class="strip">전문대 졸업생이 상대적으로 대학 소재지에 머물며 기여할 가능성(논문 해석): 대학 유형을 고려한 <b>맞춤형 재정지원</b> 필요</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 11 · [2·3단계] 전환: 남은 질문 ============ -->
+      <section class="slide" data-sec="3" data-title="연구의 전환: 인접 지역으로의 확장" data-ico="ic-route">
+        <div class="slide-inner" style="justify-content:center;gap:.9em">
+          <div class="eyebrow"><span class="dot"></span> 공간 단위 분석으로의 확장</div>
+          <div class="bigquote" style="align-self:center">
+            <span class="qm">&ldquo;</span>
+            학위논문의 패널 GLS 분석은 재정지원의 효과를 확인했으나, 그 효과가 대학 소재지에 국한되는지 인접 지역으로 <span class="circ">파급</span>되는지는 포착하지 못함. 학위논문 결론에서도 &lsquo;경제적 발전의 경우 공간데이터 활용 등을 통해 <span class="ul">이웃 지역</span>과의 관계를 고려한 분석 또한 수행될 필요가 있다&rsquo;고 후속 과제를 명시.
+          </div>
+          <div class="strip" style="align-self:center;max-width:36em">분석의 초점을 한 지역 내부의 효과에서 지역 간 관계로 확장</div>
+          <div class="figcap" style="text-align:center">자료: 박동찬(2024). 기초지방자치단체 고등교육 재정지원과 대학의 교육·연구 기능이 지역사회 경제적 발전에 미치는 영향. 충북대학교 박사학위논문. Ⅵ장 결론·제언(후속 과제).</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 12 · [3단계] 공간이 말하는 것 ============ -->
+      <section class="slide cmp" data-sec="3" data-title="공간적 자기상관: Moran's I" data-ico="ic-map">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 3단계 · 공간계량 확장 (교육재정경제연구 34(2))</div>
+          <h2 class="title sm">세 변수 모두 통계적으로 유의한 <span class="circ">공간적 자기상관</span> 존재</h2>
+          <div class="media grow">
+            <div class="col-txt" style="flex:0 0 47%">
+              <div class="chips">
+                <span class="chip tr">GRDP · Moran's I 0.335</span>
+                <span class="chip tr">고용률 0.476</span>
+                <span class="chip tr">실업률 0.651</span>
+              </div>
+              <p class="lead">세 변수 모두 유의한 양(+)의 공간군집 확인(모두 p&lt;.001, 999회 순열검정): 각 지역을 <b>독립적으로 볼 수 없음</b></p>
+              <div class="strip" style="text-align:left"><b>Y = ρWY + Xβ + θWX + μ + ε</b></div>
+              <div class="chips">
+                <span class="chip">ρ(WY): 인접 지역의 경제 결과가 해당 지역에 미치는 정도</span>
+              </div>
+              <div class="chips">
+                <span class="chip tr">θ(WX): 인접 지역 재정지원이 해당 지역에 미치는 정도 ← 파급효과 핵심</span>
+              </div>
+            </div>
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <div class="chart" style="flex:0 0 auto">
+                <div class="clab">Moran's I 산점도 (좌: GRDP · 중: 고용률 · 우: 실업률)</div>
+                <div style="display:flex;gap:.5em;align-items:flex-start">
+                  <img src="data:image/png;base64,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" alt="GRDP Moran's I 0.335 산점도" style="width:32%;height:auto;border-radius:6px">
+                  <img src="data:image/png;base64,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" alt="고용률 Moran's I 0.476 산점도" style="width:32%;height:auto;border-radius:6px">
+                  <img src="data:image/png;base64,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" alt="실업률 Moran's I 0.651 산점도" style="width:32%;height:auto;border-radius:6px">
+                </div>
+              </div>
+              <div class="figcap"><b>자료:</b> 박동찬·나민주(2025). 공간계량 분석을 이용한 고등교육 재정지원이 지역사회 경제 발전에 미치는 파급효과 연구. 교육재정경제연구, 34(2), 37-65. [그림 3-1] 재구성. <b>주:</b> Moran's I 모두 p&lt;.001(999회 순열검정).</div>
+            </div>
+          </div>
+          <div class="flow">
+            <div class="step"><b>분석 자료</b><span class="d">125개 기초지자체 · 2016~2020 균형패널</span></div>
+            <svg class="harw" viewBox="0 0 40 24" filter="url(#rough)"><path d="M3 12h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M25 6l9 6-9 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="step"><b>공간가중행렬</b><span class="d">k-최근접이웃 · k=1~5 민감도(AIC·BIC) → k=4</span></div>
+            <svg class="harw" viewBox="0 0 40 24" filter="url(#rough)"><path d="M3 12h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M25 6l9 6-9 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="step"><b>공간적 종속성 진단</b><span class="d">Moran's I · 999회 순열검정</span></div>
+            <svg class="harw" viewBox="0 0 40 24" filter="url(#rough)"><path d="M3 12h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M25 6l9 6-9 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="step llm"><b>모형 추정</b><span class="d">공간더빈모형(SDM) · 고정효과(하우스만 p&lt;.001, df=25) · GeoDa + STATA 19</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 13 · [3단계] 파급효과 ★핵심 ============ -->
+      <section class="slide cmp" data-sec="3" data-title="파급효과: 인접 지역으로의 파급" data-ico="ic-growth" style="font-size:1.92cqw">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 3단계 · 핵심 결과 · 파급효과(spillover)</div>
+          <h2 class="title sm">효과는 <span class="ul">인접 지역으로 파급</span>, 다만 그 양상은 단순하지 않음</h2>
+          <div class="media grow">
+            <div style="flex:0 0 56%;min-height:0;display:flex;flex-direction:column;justify-content:flex-start">
+              <div class="chart" style="flex:1 1 auto;min-height:0;overflow:hidden">
+                <div class="clab">고용률: 직접효과 대 파급효과 (재정지원 주체별)</div>
+                <svg viewBox="0 0 360 195" role="img" aria-label="고용률 직접효과 대 파급효과 양방향 막대차트" style="flex:1 1 0;min-height:0">
+                  <line class="c-zero" x1="205" y1="20" x2="205" y2="182"/>
+                  <text class="c-tick" x="205" y="192" text-anchor="middle">0</text>
+                  <!-- 주체 라벨 -->
+                  <text class="c-tick" x="6" y="47" text-anchor="start">소재지 기초</text>
+                  <text class="c-tick" x="6" y="87" text-anchor="start">타 기초</text>
+                  <text class="c-tick" x="6" y="127" text-anchor="start">광역</text>
+                  <text class="c-tick" x="6" y="167" text-anchor="start">중앙</text>
+                  <!-- 그룹1 소재지 기초 -->
+                  <rect class="c-bar" x="205" y="28" width="12" height="12" rx="2"/>
+                  <text class="c-val" x="220" y="38" text-anchor="start">+.058***</text>
+                  <rect class="c-bar alt" x="170" y="44" width="35" height="12" rx="2"/>
+                  <text class="c-val" x="166" y="54" text-anchor="end">−.177***</text>
+                  <!-- 그룹2 타 기초 -->
+                  <rect class="c-bar" x="205" y="68" width="2" height="12" rx="2" opacity=".45"/>
+                  <text class="c-val" x="211" y="78" text-anchor="start" style="fill:#6E675D">.004 n.s.</text>
+                  <rect class="c-bar alt" x="121" y="84" width="84" height="12" rx="2"/>
+                  <text class="c-val" x="117" y="94" text-anchor="end">−.421***</text>
+                  <!-- 그룹3 광역 -->
+                  <rect class="c-bar" x="194" y="108" width="11" height="12" rx="2"/>
+                  <text class="c-val" x="190" y="118" text-anchor="end">−.054**</text>
+                  <rect class="c-bar alt" x="205" y="124" width="50" height="12" rx="2"/>
+                  <text class="c-val" x="258" y="134" text-anchor="start">+.248***</text>
+                  <!-- 그룹4 중앙 -->
+                  <rect class="c-bar" x="205" y="148" width="3" height="12" rx="2" opacity=".45"/>
+                  <text class="c-val" x="212" y="158" text-anchor="start" style="fill:#6E675D">.014 n.s.</text>
+                  <rect class="c-bar alt" x="160" y="164" width="45" height="12" rx="2"/>
+                  <text class="c-val" x="156" y="174" text-anchor="end">−.227***</text>
+                </svg>
+                <div class="chips" style="margin-top:.3em">
+                  <span class="chip"><span class="sw" style="background:#C05A38"></span> 직접효과(x)</span>
+                  <span class="chip"><span class="sw" style="background:#3B3631"></span> 파급효과(Wx)</span>
+                  <span class="chip">전체 표본 기준(N=1,395) · n.s.=비유의</span>
+                </div>
+              </div>
+              <div class="figcap"><b>자료:</b> 박동찬·나민주(2025). 교육재정경제연구, 34(2), 37-65. &lt;표 4-3&gt;(고용률) 재구성. <b>주:</b> 직접효과=회귀계수(x), 파급효과=공간가중항(Wx). 전체 표본 기준. *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+            </div>
+            <div class="col-txt" style="flex:1">
+              <div class="sk-card accent">
+                <div class="lab"><span class="ic"><svg><use href="#ic-map"/></svg></span> 실업률 파급의 지역별 차이</div>
+                <div class="stat" style="margin:.15em 0"><span class="v">+.456*** vs −.071**</span><span class="l">인근 소재지 기초 재정지원의 실업률 파급: 수도권(실업률↑) 대 비수도권(실업률↓)</span></div>
+                <div class="desc">타 기초 재정지원의 파급 역시 수도권에서만 양(+)(<b>+.301***</b>). 논문은 인접 대학의 경쟁력 강화에 따른 구직 경쟁 심화, 취업 준비 기간 증가 등으로 원인을 유추.</div>
+              </div>
+              <div class="figcap">자료: 박동찬·나민주(2025). 교육재정경제연구, 34(2), 37-65. &lt;표 4-4&gt;(실업률, 지역별 분석) 재구성.</div>
+            </div>
+          </div>
+          <div class="strip">소재지 재정지원은 해당 지역 고용률에 정(+)(<b>+.058***</b>), 인접 지역 재정지원의 파급은 광역(<b>+.248***</b>)을 제외하면 음(−)(<b>−.177~−.421***</b>): 개별 지자체 단위를 넘어선 <b>역할 분담·협력</b>의 필요성 시사(논문 제언)</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 14 · 거버넌스 시사점 ============ -->
+      <section class="slide cmp" data-sec="4" data-title="거버넌스 시사점" data-ico="ic-brain">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> Part 4 · 종합 · 거버넌스 함의</div>
+          <h2 class="title sm"><span class="circ">다층적·초광역적</span> 고등교육 거버넌스 설계가 필요하지 않을까?</h2>
+          <div class="cards cols-2 grow stagger">
+            <div class="sk-card"><div class="lab"><span class="big">1</span> <span class="ink">주체별로 상이한 효과와 파급</span></div><div class="desc">- 소재지 기초 재정지원: 해당 지역 고용률에 정(+)의 직접효과<br>- 광역 재정지원: 인접 지역에 긍정적 파급, 기초 재정지원의 파급은 대체로 부정적<br>- 초광역 협력 논의에 실증적 근거 제공(논문 결론)</div></div>
+            <div class="sk-card accent"><div class="lab"><span class="big">2</span> <span class="ink">RISE 체계와 기초지자체</span></div><div class="desc">- RISE(2025~ 전국 확대): 광역지자체 주도의 지역주도 대학지원 체계<br>- 광역 중심 체계만으로는 기초별로 다른 인구변화·소멸위험·경제격차 해소에 한계 가능성(학위논문)<br>- 글로컬대학30 등과 연계한 광역-기초 간 역할분담 검토 필요</div></div>
+            <div class="sk-card"><div class="lab"><span class="big">3</span> <span class="ink">초광역 협력체계</span></div><div class="desc">- 긍정적 파급: 초광역 협력으로 효과 확산·공유<br>- 부정적 파급: 지자체 단위를 넘어선 역할 분담·중복 투자 방지·경쟁 완화(논문 제언)<br>- 사례: 경기 초광역 산학연 컨소시엄(경기도, 2025) · 강원 G-lab 기반 LRS 공유대학, 도내 16개 대학 참여(강원특별자치도, 2025)</div></div>
+            <div class="sk-card"><div class="lab"><span class="big">4</span> <span class="ink">법·조례 기반</span></div><div class="desc">- 「지방대학 및 지역균형인재 육성에 관한 법률」(2014): 국가·지자체의 책무와 재정지원 근거 규정<br>- 기초지자체 지원은 개별 조례로 확산 중(광역 17개 시·도 및 다수 기초 조례)<br>- 광역 재정지원만으로는 기초가 처한 문제의 직접 해결에 한계(학위논문)</div></div>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024) 박사학위논문 Ⅱ장·Ⅵ장 및 박동찬·나민주(2025). 교육재정경제연구, 34(2), 37-65의 논의 재구성. RISE·초광역 사례는 교육부 및 각 시·도 발표(2024~2025).</div>
+          <div class="strip">종합하면, 소규모 재정지원도 지역사회 경제발전에 효과가 있으며 그 효과가 <b>인접 지역으로 파급</b>되므로, 다층적·초광역 거버넌스 설계 검토 필요</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 15 · 마무리: 남겨진 질문 ============ -->
+      <section class="slide cmp" data-sec="5" data-title="연구 요약과 향후 과제" data-ico="ic-q">
+        <div class="slide-inner" style="gap:.7em">
+          <div class="eyebrow"><span class="dot"></span> 마무리 · 연구 요약과 향후 과제</div>
+          <div class="journey" style="padding:1em .4em .2em">
+            <div class="jstage"><span class="jdot"></span><span class="jyear">2024</span><span class="jttl">박사학위논문</span></div>
+            <div class="jstage"><span class="jdot"></span><span class="jyear">2024</span><span class="jttl">후속 게재논문</span></div>
+            <div class="jstage now"><span class="jdot"></span><span class="jyear">2025</span><span class="jttl">공간계량 확장</span></div>
+          </div>
+          <div class="cards cols-3 grow stagger">
+            <div class="sk-card">
+              <div class="lab"><span class="ic ink"><svg><use href="#ic-check"/></svg></span> 연구 요약</div>
+              <div class="desc">- 중앙 대비 1~2.5% 수준의 소규모 재정지원도 대학 기능과 지역 고용에 유의한 효과<br>- 효과는 인접 지역으로 파급, 주체·대학 유형·지역별로 상이</div>
+            </div>
+            <div class="sk-card">
+              <div class="lab"><span class="ic ink"><svg><use href="#ic-doc"/></svg></span> 연구의 한계</div>
+              <div class="desc">- 분석기간 2016~2020년 한정<br>- 공간모형에서 재정지원 효과의 시차(Lag) 미고려(동적 사양은 수렴 실패로 미제시)<br>- 졸업생 정주·이동 등 개인 수준 자료 미반영</div>
+            </div>
+            <div class="sk-card accent">
+              <div class="lab"><span class="ic"><svg><use href="#ic-route"/></svg></span> 향후 연구과제</div>
+              <div class="desc">- 시·공간 시차와 다양한 공간가중행렬을 반영한 공간패널모형 적용<br>- 대학의 교육·연구 기능을 함께 고려한 파급효과 분석<br>- 다층모형을 활용한 기초지자체 이질성 분석 등 필요</div>
+            </div>
+          </div>
+          <div class="figcap" style="text-align:center">자료: 박동찬(2024) 박사학위논문 및 박동찬·나민주(2025) 공간계량 논문의 한계·제언을 발표자가 정리(저자 작성).</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 16 · Q&A ============ -->
+      <section class="slide" data-sec="5" data-title="Q & A" data-ico="ic-q">
+        <div class="slide-inner qa">
+          <div class="eyebrow" style="justify-content:center"><span class="dot"></span> 감사합니다</div>
+          <div class="big-t">Q &amp; A</div>
+        </div>
+      </section>
+
+
+    </div>
+    <button class="nav next" id="nextBtn" aria-label="다음"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <footer class="dotbar">
+    <div id="dots" style="display:flex;align-items:center;gap:7px"></div>
+    <span class="hint"><b>← →</b> 이동 · <b>O</b> 전체보기 · <b>F11</b> 전체화면</span>
+  </footer>
+</div><!-- /.shell -->
+
+<div class="overview" id="overview">
+  <div class="ov-head"><svg width="20" height="20"><use href="#ic-grid"/></svg><span class="t">전체 슬라이드</span><span class="s">클릭하면 해당 슬라이드로 이동 · Esc 닫기</span><div style="flex:1"></div><button class="tbtn" id="ovClose">닫기 <span class="k">Esc</span></button></div>
+  <div class="ov-body" id="ovBody"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const SECTIONS = [
+    {name:"시작"},
+    {name:"Part 1 · 연구 배경"},
+    {name:"Part 2 · 박사학위논문(1단계)"},
+    {name:"Part 3 · 검증·공간확장(2·3단계)"},
+    {name:"Part 4 · 종합·거버넌스 함의"},
+    {name:"마무리"},
+  ];
+  const deck = document.getElementById('deck');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+  const secNow = document.getElementById('secNow');
+  const curN = document.getElementById('curN');
+  document.getElementById('totN').textContent = total;
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+
+  const dotEls = [];
+  let curGroup = null, lastSec = -1;
+  slides.forEach((s,i)=>{
+    const sec = +s.dataset.sec;
+    if(sec !== lastSec){ curGroup = document.createElement('div'); curGroup.className='dgroup'; dotsWrap.appendChild(curGroup); lastSec = sec; }
+    const d = document.createElement('button');
+    d.className='dot'; d.title=(i+1)+'. '+(s.dataset.title||'');
+    d.addEventListener('click',()=>go(i));
+    curGroup.appendChild(d); dotEls.push(d);
+  });
+
+  const ovBody = document.getElementById('ovBody');
+  const overview = document.getElementById('overview');
+  const ovCards = [];
+  (function(){
+    let lastSec=-1, secDiv=null, grid=null;
+    slides.forEach((s,i)=>{
+      const sec = +s.dataset.sec;
+      if(sec!==lastSec){
+        secDiv=document.createElement('div'); secDiv.className='ov-sec';
+        const h=document.createElement('h4'); h.innerHTML='<span class="b"></span>'+SECTIONS[sec].name; secDiv.appendChild(h);
+        grid=document.createElement('div'); grid.className='ov-grid'; secDiv.appendChild(grid);
+        ovBody.appendChild(secDiv); lastSec=sec;
+      }
+      const c=document.createElement('button'); c.className='ov-card';
+      const ico=s.dataset.ico||'ic-doc';
+      c.innerHTML='<div class="n">'+String(i+1).padStart(2,'0')+'</div><div class="ttl">'+(s.dataset.title||'')+'</div><div class="ico"><svg><use href="#'+ico+'"/></svg></div>';
+      c.addEventListener('click',()=>{ go(i); closeOverview(); });
+      grid.appendChild(c); ovCards.push(c);
+    });
+  })();
+  function openOverview(){ overview.classList.add('show'); ovCards.forEach((c,i)=>c.classList.toggle('on',i===cur)); const o=ovCards[cur]; if(o) o.scrollIntoView({block:'center'}); }
+  function closeOverview(){ overview.classList.remove('show'); }
+  function toggleOverview(){ overview.classList.contains('show')?closeOverview():openOverview(); }
+  document.getElementById('ovBtn').addEventListener('click',toggleOverview);
+  document.getElementById('ovClose').addEventListener('click',closeOverview);
+  overview.addEventListener('click',e=>{ if(e.target===overview) closeOverview(); });
+
+  function go(i){
+    i=Math.max(0,Math.min(total-1,i));
+    if(i===cur && slides[cur].classList.contains('active')){ sync(); return; }
+    slides[cur].classList.remove('active');
+    cur=i; slides[cur].classList.add('active');
+    sync();
+  }
+  function sync(){
+    curN.textContent=cur+1;
+    secNow.textContent=SECTIONS[+slides[cur].dataset.sec].name;
+    prevBtn.disabled=cur===0; nextBtn.disabled=cur===total-1;
+    dotEls.forEach((d,i)=>{ d.classList.toggle('on',i===cur); d.classList.toggle('done',i<cur); });
+    ovCards.forEach((c,i)=>c.classList.toggle('on',i===cur));
+    if(location.hash!=='#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+  }
+  const next=()=>go(cur+1), prev=()=>go(cur-1);
+  nextBtn.addEventListener('click',next); prevBtn.addEventListener('click',prev);
+
+  document.addEventListener('keydown',e=>{
+    if(overview.classList.contains('show')){ if(e.key==='Escape'||e.key==='o'||e.key==='O') closeOverview(); return; }
+    switch(e.key){
+      case 'ArrowRight': case 'PageDown': case ' ': case 'j': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': case 'k': e.preventDefault(); prev(); break;
+      case 'Home': go(0); break;
+      case 'End': go(total-1); break;
+      case 'o': case 'O': toggleOverview(); break;
+      case 'Escape': closeOverview(); break;
+    }
+  });
+
+  function hashIndex(){ const n=parseInt((location.hash||'').replace('#',''),10); return (!isNaN(n)&&n>=1&&n<=total)?n-1:null; }
+  const initIdx=hashIndex(); if(initIdx!=null) cur=initIdx;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  sync();
+  window.addEventListener('hashchange',()=>{ const t=hashIndex(); if(t!=null&&t!==cur) go(t); });
+
+  // 터치 스와이프 (deck 영역 좌우 이동)
+  (function(){
+    let x0=null, y0=null;
+    deck.addEventListener('touchstart',e=>{ const t=e.changedTouches[0]; x0=t.clientX; y0=t.clientY; },{passive:true});
+    deck.addEventListener('touchend',e=>{
+      if(x0===null) return; const t=e.changedTouches[0];
+      const dx=t.clientX-x0, dy=t.clientY-y0;
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.5){ dx<0 ? next() : prev(); }
+      x0=y0=null;
+    },{passive:true});
+  })();
+})();
+</script>
+</body>
+</html>
