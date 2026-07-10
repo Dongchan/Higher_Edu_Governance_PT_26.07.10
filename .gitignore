@@ -1,0 +1,13 @@
+# 소스 원문 및 내부 작업 문서 — 공개 레포에 푸쉬 금지
+Reference_doc/
+Reference_extracted/
+Inst/
+Work_inst.md
+
+# OS/편집기·도구 잡파일
+Thumbs.db
+Desktop.ini
+~$*
+.claude/
+.playwright-mcp/
+*.jpeg

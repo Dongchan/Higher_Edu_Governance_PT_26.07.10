@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>고등교육 재정지원은 지역경제의 경계를 넘는가 · 한국교육행정학회 세대교류위원회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gowun+Dodum&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+/* ===== 디자인 토큰 : 크림 종이 위 손그림 강의 노트 ===== */
+:root{
+  --paper:#F5F2EB;--card:#FBF8F2;--ink:#32302C;--body:#4A453E;--muted:#6E675D;--header:#7A7263;
+  --terra:#C05A38;--terra-dk:#A84B2F;--terra-lt:#D98E6B;--charcoal:#3B3631;
+  --line:rgba(59,54,49,.16);--mat:#1b1916;
+  --font:'KoPub Dotum','KoPubDotum Medium','Pretendard','Gowun Dodum','Noto Sans KR',system-ui,sans-serif;
+  --hand:'Nanum Pen Script','Gaegu',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--body);background:var(--paper);overflow:hidden;-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.45),transparent 60%),radial-gradient(120% 120% at 50% 120%,rgba(120,90,60,.10),transparent 55%)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")}
+
+/* ===== 셸 · 상단바 ===== */
+.shell{position:relative;z-index:2;display:flex;flex-direction:column;height:100%}
+.topbar{display:flex;align-items:center;gap:14px;padding:11px 22px 9px;flex:0 0 auto}
+.brand{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);white-space:nowrap}
+.brand b{color:var(--ink);font-weight:400}
+.sec-now{margin-left:6px;font-size:12.5px;color:var(--terra-dk);border-left:1px solid var(--line);padding-left:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw}
+.spacer{flex:1}
+.counter{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;white-space:nowrap}
+.counter b{color:var(--ink)}
+.tbtn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--body);border-radius:10px;height:34px;padding:0 12px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:inherit;font-size:12.5px;transition:.16s;white-space:nowrap}
+.tbtn:hover{border-color:var(--terra);color:var(--terra-dk);transform:translateY(-1px)}
+.tbtn svg{width:15px;height:15px}
+.tbtn .k{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 4px;line-height:15px}
+
+/* ===== 덱 · 프레임 · 내비 화살표 ===== */
+.deck-area{flex:1;min-height:0;display:grid;place-items:center;padding:6px 10px 2px;position:relative}
+.frame{position:relative;aspect-ratio:16/9;width:min(94vw,148vh);max-height:99%;background:var(--paper);border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -22px rgba(45,32,20,.5),0 4px 14px -6px rgba(45,32,20,.3);border:1px solid rgba(59,54,49,.10);container-type:size}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),inset 0 -40px 80px -50px rgba(120,80,50,.25)}
+.nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--terra-dk);cursor:pointer;display:grid;place-items:center;transition:.18s;box-shadow:0 4px 12px -4px rgba(45,32,20,.3)}
+.nav:hover{background:var(--terra);color:#fff;transform:translateY(-50%) scale(1.08)}
+.nav:disabled{opacity:.3;cursor:default;transform:translateY(-50%)}
+.nav.prev{left:14px}.nav.next{right:14px}
+.nav svg{width:20px;height:20px}
+
+:fullscreen .deck-area{padding:0}
+:fullscreen .frame{border-radius:0;box-shadow:none;width:auto;height:100%;max-height:100%;max-width:100vw}
+:fullscreen .topbar,:fullscreen .dotbar{background:rgba(245,242,235,.85)}
+@media (max-width:680px){.sec-now{display:none}.hint{display:none}}
+@media print{@page{size:1280px 720px;margin:0}
+  .topbar,.dotbar,.nav,.overview{display:none!important}
+  .deck-area{display:block;padding:0}
+  .frame{width:1280px;height:720px;max-height:none;border-radius:0;box-shadow:none;page-break-after:always}
+  .slide{opacity:1!important;visibility:visible!important;position:relative;font-size:15.5px}
+  .slide-inner>*,.stagger>*{animation:none!important}}
+
+/* ===== 진행바 · 목차 ===== */
+.dotbar{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 22px 12px}
+.dgroup{display:flex;gap:3px;align-items:center}
+.dgroup+.dgroup{margin-left:9px;padding-left:9px;border-left:1px solid var(--line)}
+.dot{width:13px;height:5px;border-radius:3px;background:rgba(59,54,49,.18);cursor:pointer;transition:.18s;border:none;padding:0}
+.dot:hover{background:var(--terra-lt);transform:scaleY(1.5)}
+.dot.on{background:var(--terra);width:20px}
+.dot.done{background:rgba(192,90,56,.4)}
+.hint{margin-left:14px;font-size:11px;color:var(--muted);white-space:nowrap}
+.hint b{color:var(--header);font-weight:400}
+.overview{position:fixed;inset:0;z-index:50;background:rgba(34,30,26,.62);backdrop-filter:blur(6px);display:none;flex-direction:column}
+.overview.show{display:flex;animation:fade .2s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.ov-head{display:flex;align-items:center;gap:14px;padding:16px 26px;color:#f4ead9}
+.ov-head .t{font-size:17px;color:#fff}
+.ov-head .s{font-size:13px;color:#d6c9b5}
+.ov-body{flex:1;overflow:auto;padding:4px 26px 26px}
+.ov-sec{margin-bottom:18px}
+.ov-sec h4{color:#f0e3cf;font-size:12.5px;font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ov-sec h4 .b{width:8px;height:8px;border-radius:2px;background:var(--terra)}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:12px}
+.ov-card{background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:12px;aspect-ratio:16/9;padding:12px;cursor:pointer;transition:.16s;position:relative;display:flex;flex-direction:column;gap:4px;overflow:hidden;text-align:left;font-family:inherit}
+.ov-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -8px rgba(0,0,0,.5);border-color:var(--terra)}
+.ov-card.on{outline:2.5px solid var(--terra);outline-offset:1px}
+.ov-card .n{font-size:11px;color:var(--terra-dk);font-variant-numeric:tabular-nums}
+.ov-card .ttl{font-size:12.5px;color:var(--ink);line-height:1.35;flex:1;overflow:hidden}
+.ov-card .ico{position:absolute;right:9px;bottom:8px;color:rgba(192,90,56,.45)}
+.ov-card .ico svg{width:18px;height:18px}
+
+/* ===== 슬라이드 시스템 ===== */
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;padding:2.6cqw 6cqw 3.4cqw;display:flex;flex-direction:column;transition:opacity .34s ease;font-size:2.18cqw;line-height:1.45;color:var(--body);word-break:keep-all;overflow-wrap:anywhere}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto}
+.slide-inner{display:flex;flex-direction:column;gap:.5em;height:100%;min-height:0}
+.slide-inner>.eyebrow{margin-bottom:-.1em}
+.slide.active .slide-inner>*{animation:rise .5s cubic-bezier(.2,.75,.25,1) both}
+.slide.active .slide-inner>*:nth-child(1){animation-delay:.04s}
+.slide.active .slide-inner>*:nth-child(2){animation-delay:.11s}
+.slide.active .slide-inner>*:nth-child(3){animation-delay:.18s}
+.slide.active .slide-inner>*:nth-child(4){animation-delay:.25s}
+.slide.active .slide-inner>*:nth-child(5){animation-delay:.32s}
+.slide.active .stagger>*{animation:rise .5s cubic-bezier(.2,.75,.25,1) both}
+.slide.active .stagger>*:nth-child(1){animation-delay:.16s}
+.slide.active .stagger>*:nth-child(2){animation-delay:.26s}
+.slide.active .stagger>*:nth-child(3){animation-delay:.36s}
+.slide.active .stagger>*:nth-child(4){animation-delay:.46s}
+.slide.active .stagger>*:nth-child(5){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+
+.eyebrow{display:flex;align-items:center;gap:.5em;font-size:.82em;color:var(--header)}
+.eyebrow .dot{width:.5em;height:.5em;border-radius:50%;background:var(--terra);box-shadow:0 0 0 .18em rgba(192,90,56,.16)}
+.title{font-size:1.95em;line-height:1.16;color:var(--ink);font-weight:400;letter-spacing:-.01em}
+.title.sm{font-size:1.58em}
+.sub{font-size:.96em;color:var(--muted);max-width:46em}
+.lead{font-size:1.04em;color:var(--body)}
+.ink{color:var(--ink)}.tr{color:var(--terra-dk)}.mut{color:var(--muted)}
+
+/* ===== 손그림 장식 ===== */
+.ul{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3,9 C50,4 100,12 150,7 C175,4.5 190,9 197,8' fill='none' stroke='%23A84B2F' stroke-width='3.6' stroke-linecap='round'/%3E%3Cpath d='M6,13 C60,11 110,14.5 160,11 C180,9.6 192,12 196,12' fill='none' stroke='%23D98E6B' stroke-width='2' stroke-linecap='round' opacity='.85'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:0 1.05em;background-size:100% .42em;padding-bottom:.18em}
+.circ{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 92' preserveAspectRatio='none'%3E%3Cpath d='M34,12 C96,2 182,4 206,30 C221,49 192,78 118,85 C52,91 7,76 7,47 C7,24 64,10 152,15' fill='none' stroke='%23C05A38' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:108% 150%;padding:0 .35em;color:var(--ink)}
+.hand{font-family:var(--hand);color:var(--terra);font-size:1.85em;line-height:1;transform:rotate(-3deg);align-self:flex-start}
+.hand.r{transform:rotate(2.5deg)}
+
+/* ===== 손그림 카드 · 그리드 ===== */
+.cards{display:grid;gap:1.1em;min-height:0;align-content:center}
+.cols-2{grid-template-columns:1fr 1fr}
+.cols-3{grid-template-columns:1fr 1fr 1fr}
+.cols-4{grid-template-columns:repeat(4,1fr)}
+.grow{flex:1;min-height:0}
+.sk-card{position:relative;background:var(--card);border:2px solid var(--charcoal);border-radius:16px 13px 17px 12px;padding:.95em 1.1em;display:flex;flex-direction:column;gap:.38em;box-shadow:.18em .26em 0 rgba(59,54,49,.10)}
+.sk-card::after{content:"";position:absolute;inset:3px 4px 5px 3px;border:1px solid rgba(59,54,49,.22);border-radius:13px 16px 11px 15px;pointer-events:none}
+.sk-card.accent{border-color:var(--terra-dk)}
+.sk-card.accent::after{border-color:rgba(168,75,47,.3)}
+a.sk-card{text-decoration:none;color:inherit;cursor:pointer}
+a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54,49,.2);transition:transform .14s,box-shadow .14s}
+.sk-card .lab{font-size:1.02em;color:var(--ink);display:flex;align-items:center;gap:.5em}
+.sk-card .desc{font-size:.84em;color:var(--body);line-height:1.42}
+.sk-card .big{font-family:var(--hand);font-size:1.7em;color:var(--terra);line-height:1}
+.sk-card .ko{font-size:.74em;color:var(--muted)}
+
+.ic{width:1.95em;height:1.95em;flex:0 0 auto;border-radius:9px;border:1.6px solid var(--terra-dk);color:var(--terra-dk);display:grid;place-items:center;background:rgba(192,90,56,.07)}
+.ic svg{width:1.15em;height:1.15em}
+.ic.ink{border-color:var(--charcoal);color:var(--charcoal);background:rgba(59,54,49,.05)}
+
+/* ===== 칩 · 노트 · 스트립 ===== */
+.chip{display:inline-flex;align-items:center;gap:.4em;font-size:.76em;background:rgba(59,54,49,.06);border:1px solid var(--line);border-radius:8px;padding:.25em .6em;color:var(--body);white-space:nowrap}
+.chip.tr{background:rgba(192,90,56,.1);border-color:rgba(192,90,56,.3);color:var(--terra-dk)}
+.chip.code{font-family:'Consolas','Courier New',monospace;background:#2b2824;color:#f3ead9;border:none}
+.chips{display:flex;flex-wrap:wrap;gap:.5em;align-items:center}
+.note{font-size:.77em;color:var(--muted);background:rgba(192,90,56,.06);border-left:3px solid var(--terra);border-radius:0 8px 8px 0;padding:.45em .75em}
+.strip{font-size:.82em;color:var(--body);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.5em .85em;text-align:center}
+.strip b{color:var(--terra-dk);font-weight:400}
+
+/* ===== 통계 큰 숫자 ===== */
+.stat{display:flex;flex-direction:column;gap:.05em}
+.stat .v{font-family:var(--hand);font-size:1.7em;color:var(--terra);line-height:1}
+.stat .l{font-size:.7em;color:var(--muted)}
+
+/* ===== 2컬럼 미디어 ===== */
+.media{flex:1;min-height:0;display:flex;gap:1.1em;align-items:stretch}
+.col-txt{display:flex;flex-direction:column;gap:.5em;justify-content:center}
+
+/* ===== 프로세스 흐름 ===== */
+.flow{display:flex;align-items:stretch;gap:.4em;flex-wrap:wrap;justify-content:center}
+.step{flex:1 1 0;min-width:0;background:var(--card);border:1.6px solid var(--line);border-radius:11px;padding:.5em .45em;text-align:center;font-size:.78em;color:var(--body);display:flex;flex-direction:column;gap:.15em;justify-content:center;position:relative}
+.step .t{font-size:.66em;color:var(--header)}
+.step .d{font-size:.66em;color:var(--muted)}
+.step.llm{border-color:rgba(192,90,56,.45);background:rgba(192,90,56,.07)}
+.step.human{border-color:var(--charcoal);background:rgba(59,54,49,.06);color:var(--ink)}
+.harw{width:1.5em;flex:0 0 auto;align-self:center;color:var(--terra)}
+
+/* ===== 표지 · Q&A ===== */
+.cover{align-items:flex-start;justify-content:center;gap:.2em}
+.cover .big-t{font-size:3.3em;line-height:1.12;color:var(--ink);font-weight:400;letter-spacing:-.02em}
+.cover .sub-t{font-size:1.15em;color:var(--terra-dk);margin-top:.5em;max-width:26em;line-height:1.4}
+.cover .meta{display:flex;gap:1.4em;font-size:.92em;color:var(--muted);margin-top:1.3em;align-items:center}
+.cover .meta b{color:var(--ink);font-weight:400}
+.cover .note-alt{font-size:.62em;color:var(--muted);margin-top:1.6em;max-width:40em;line-height:1.5}
+.qa{align-items:center;justify-content:center;text-align:center}
+.qa .big-t{font-size:4.6em;font-family:var(--hand);color:var(--terra);line-height:1}
+
+/* ===== 결과표(회귀계수) ===== */
+.rtable{width:100%;border-collapse:collapse;font-size:.72em;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 22px -12px rgba(45,32,20,.35)}
+.rtable thead th{background:rgba(59,54,49,.05);color:var(--header);font-weight:400;text-align:left;padding:.42em .9em;border-bottom:1px solid var(--line);white-space:nowrap}
+.rtable tbody th[scope=row]{padding:.34em .9em;border-top:1px solid var(--line);color:var(--ink);font-weight:400;text-align:left}
+.rtable tbody td{padding:.34em .9em;border-top:1px solid var(--line);color:var(--body)}
+.rtable .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rtable tr.sig{background:rgba(192,90,56,.09)}
+.rtable tr.sig th[scope=row]{color:var(--terra-dk)}
+.rtable .star{color:var(--terra-dk);font-weight:700;font-size:.9em}
+.rtable .pos{color:#2E7D4E}
+.rtable .neg{color:#A84B2F}
+.rtable tfoot td{padding:.32em .9em;font-size:.84em;color:var(--muted);border-top:1px solid var(--line);text-align:left}
+
+/* ===== 인라인 SVG 차트 ===== */
+.chart{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 22px -12px rgba(45,32,20,.35);padding:.7em .9em .5em;display:flex;flex-direction:column;min-height:0}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart .clab{font-size:.72em;color:var(--header);margin-bottom:.2em}
+.c-axis{stroke:#3B3631;stroke-opacity:.55;stroke-width:1.6;stroke-linecap:round}
+.c-grid{stroke:var(--line);stroke-width:1}
+.c-zero{stroke:#3B3631;stroke-width:1.5;stroke-dasharray:4 4;opacity:.7}
+.c-bar{fill:#C05A38}
+.c-bar.alt{fill:#3B3631}
+.c-bar.lt{fill:#D98E6B}
+.c-dot{fill:#C05A38}
+.c-ci{stroke:#D98E6B;stroke-width:2.4;stroke-linecap:round}
+.c-tick{fill:#6E675D;font-size:9px;font-family:var(--font)}
+.c-val{fill:#32302C;font-size:9px;font-family:var(--font);font-variant-numeric:tabular-nums}
+.c-emph{fill:#C05A38;font-family:'Nanum Pen Script',cursive;font-size:16px}
+
+/* ===== 표/그림 출처 캡션 ===== */
+.figcap{font-size:.62em;color:var(--muted);line-height:1.45;margin-top:.4em;text-align:left}
+.figcap b{color:var(--header);font-weight:400}
+.figcap .src{color:var(--terra-dk)}
+
+/* ===== 연구모형 다이어그램 ===== */
+.model{display:flex;align-items:center;justify-content:center;gap:.15em;flex-wrap:wrap;padding:.3em 0}
+.node{position:relative;background:var(--card);border:1.8px solid var(--charcoal);border-radius:12px 10px 13px 9px;padding:.5em .9em;text-align:center;font-size:.82em;color:var(--ink);box-shadow:.14em .2em 0 rgba(59,54,49,.10);max-width:11em}
+.node .nt{font-size:.68em;color:var(--header);display:block}
+.node .nd{font-size:.66em;color:var(--muted)}
+.node.dv{border-color:var(--terra-dk);background:rgba(192,90,56,.06)}
+.node.dv .nt{color:var(--terra-dk)}
+.node.mod{border-style:dashed;font-size:.74em;padding:.35em .7em}
+.marw{width:2.6em;flex:0 0 auto;align-self:center;color:var(--terra)}
+.mod-wrap{display:flex;flex-direction:column;align-items:center;gap:.1em}
+.mod-down{width:1.4em;color:var(--terra);transform:rotate(90deg)}
+
+/* ===== 연구 여정 타임라인 ===== */
+.journey{position:relative;display:flex;align-items:stretch;gap:0;padding:1.2em .4em .4em}
+.journey::before{content:"";position:absolute;left:8%;right:8%;top:1.6em;height:.4em;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3,9 C50,4 100,12 150,7 C175,4.5 190,9 197,8' fill='none' stroke='%23D98E6B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-size:100% 100%;pointer-events:none}
+.jstage{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:.28em;padding:0 .6em;text-align:center}
+.jstage .jdot{width:.95em;height:.95em;border-radius:50%;background:var(--terra);box-shadow:0 0 0 .22em rgba(192,90,56,.16);position:relative;z-index:1}
+.jstage .jyear{font-family:var(--hand);font-size:1.5em;color:var(--terra);line-height:1}
+.jstage .jttl{font-size:.9em;color:var(--ink)}
+.jstage .jdesc{font-size:.72em;color:var(--muted);line-height:1.42}
+.jstage.now .jdot{background:var(--terra-dk);box-shadow:0 0 0 .28em rgba(192,90,56,.24)}
+
+/* ===== 신규 유틸 : 히트맵 · 큰 인용 · 스와치 ===== */
+.heat{width:100%;border-collapse:separate;border-spacing:.18em;font-size:.62em}
+.heat thead th{font-weight:400;color:var(--header);padding:.3em .4em;text-align:center;white-space:nowrap}
+.heat td.rl{text-align:left;color:var(--ink);white-space:nowrap;padding:.32em .5em;background:rgba(59,54,49,.04);border-radius:6px}
+.heat td.c{text-align:center;border-radius:6px;font-variant-numeric:tabular-nums;padding:.32em .3em;color:var(--ink);white-space:nowrap}
+.heat td.pos{background:rgba(46,125,78,.16);color:#1f5c38}
+.heat td.pos.s3{background:rgba(46,125,78,.30)}
+.heat td.neg{background:rgba(168,75,47,.20);color:#7a3320}
+.heat td.neg.s3{background:rgba(168,75,47,.34)}
+.heat td.ns{background:rgba(59,54,49,.07);color:var(--muted)}
+.heat .star{color:inherit;font-weight:700;font-size:.9em}
+.heat tr.hl td.rl{color:var(--terra-dk);font-weight:700}
+.sw{display:inline-block;width:.8em;height:.8em;border-radius:3px;vertical-align:-1px;flex:0 0 auto}
+.bigquote{position:relative;font-size:1.16em;line-height:1.62;color:var(--ink);padding:.15em 0 .15em 1.05em;max-width:31em;border-left:.18em solid var(--terra);word-break:keep-all}
+.bigquote .qm{font-family:var(--hand);color:var(--terra-lt);font-size:2.6em;line-height:0;position:absolute;left:.12em;top:.55em}
+
+/* ===== 오버플로 완화(밀도 축소) — .cmp 지정 슬라이드 전용, 정상 슬라이드 불변 ===== */
+.slide.cmp{font-size:2.0cqw}
+.slide.cmp .slide-inner{gap:.4em}
+.slide.cmp .title.sm{font-size:1.4em}
+.slide.cmp .sub{font-size:.9em}
+.slide.cmp .sk-card{padding:.6em .8em;gap:.22em;border-radius:14px 11px 15px 10px}
+.slide.cmp .sk-card::after{inset:3px 4px 4px 3px}
+.slide.cmp .sk-card .lab{font-size:.92em}
+.slide.cmp .sk-card .desc{font-size:.72em;line-height:1.26}
+.slide.cmp .cards{gap:.7em;align-content:stretch}
+.slide.cmp .note{font-size:.72em;padding:.4em .65em}
+.slide.cmp .figcap{font-size:.6em;margin-top:.25em}
+.slide.cmp .strip{font-size:.78em;padding:.42em .8em}
+.slide.cmp .media{gap:.85em}
+.slide.cmp .col-txt{justify-content:flex-start}
+.slide.cmp .heat{font-size:.54em}
+.slide.cmp .heat thead th{padding:.22em .3em}
+.slide.cmp .heat td.c,.slide.cmp .heat td.rl{padding:.22em .28em}
+.slide.cmp .chart{padding:.5em .7em .35em}
+.slide.cmp .chart .clab{font-size:.66em;margin-bottom:.1em}
+</style>
+</head>
+<body>
+
+<!-- ===== SVG defs : 손떨림 필터 + 아이콘 스프라이트 ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="rough" x="-5%" y="-30%" width="110%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="0.018 0.03" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.4"/></filter>
+  <symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="ic-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="4" r="2.5"/><circle cx="18" cy="16" r="2.5"/><path d="M8.5 4H14a4 4 0 0 1 0 8h-4a4 4 0 0 0 0 8"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-12"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h8l5 5V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1Z"/><path d="M14 2.5v5h5M8.5 13h7M8.5 16.5h7"/></symbol>
+  <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 4h6v15H6a2 2 0 0 0-2 1.5Z"/><path d="M20 5.5A2 2 0 0 0 18 4h-6v15h6a2 2 0 0 1 2 1.5Z"/></symbol>
+  <symbol id="ic-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5a2.5 2.5 0 0 0-2.5 2.5A2.5 2.5 0 0 0 5 12a2.5 2.5 0 0 0 1.5 4.5A2.5 2.5 0 0 0 9 19a2.5 2.5 0 0 0 3-2.5V7.5A2.5 2.5 0 0 0 9 5Z"/><path d="M15 5a2.5 2.5 0 0 1 2.5 2.5A2.5 2.5 0 0 1 19 12a2.5 2.5 0 0 1-1.5 4.5A2.5 2.5 0 0 1 15 19a2.5 2.5 0 0 1-3-2.5"/></symbol>
+  <symbol id="ic-q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.2c0-1.5 1.2-2.4 2.6-2.4s2.5.9 2.5 2.3c0 2-2.5 2.2-2.5 3.9"/><path d="M12 16.4v.01"/></symbol>
+  <symbol id="ic-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="ic-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.7c0-1.3 1.1-2 2.5-2s2.5.8 2.5 2-1.1 1.8-2.5 1.8-2.5.6-2.5 1.9 1.1 2 2.5 2 2.5-.7 2.5-2"/></symbol>
+  <symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4Z"/><path d="M9 4v13M15 6.5v13"/></symbol>
+  <symbol id="ic-growth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 11l4 4 6-8"/><path d="M20 7h-4M20 7v4"/></symbol>
+</defs></svg>
+
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">한국교육행정학회 세대교류위원회 · <b>고등교육 거버넌스</b></div>
+    <div class="sec-now" id="secNow">시작</div>
+    <div class="spacer"></div>
+    <div class="counter"><b id="curN">1</b> / <span id="totN">00</span></div>
+    <button class="tbtn" id="ovBtn" title="전체 슬라이드 보기 (O)"><svg><use href="#ic-grid"/></svg> 전체보기 <span class="k">O</span></button>
+  </header>
+
+  <div class="deck-area">
+    <button class="nav prev" id="prevBtn" aria-label="이전"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="frame" id="deck">
+
+      <!-- ============ 슬라이드 1 · 표지 ============ -->
+      <section class="slide active" data-sec="0" data-title="표지" data-ico="ic-doc">
+        <!-- 대안 제목(오케스트레이터가 1안으로 확정 — 화면 미노출, 발표자 참고용)
+          2안: 고등교육 재정지원과 지역사회 경제발전과의 관계
+               부제 — 박사학위논문에서 공간계량 확장까지 · 고등교육 거버넌스에의 함의
+          3안: 다층·초광역 거버넌스로 본 고등교육 재정지원의 효과
+               부제 — 작지만 번진다 · 규모(scale)가 아니라 층위·근접성·맥락
+        -->
+        <div class="slide-inner cover">
+          <div class="eyebrow"><span class="dot"></span> 한국교육행정학회 세대교류위원회 · 고등교육 거버넌스</div>
+          <h1 class="big-t" style="font-size:2.9em">고등교육 재정지원은<br>지역경제의 <span class="circ">경계</span>를 넘는가</h1>
+          <p class="sub-t">연구 여정으로 본 기초지자체 재정지원 효과와 다층 거버넌스</p>
+          <div class="meta">
+            <span><b>26.07.25</b> (SAT)</span>
+            <span style="color:var(--line)">|</span>
+            <span><b>박동찬</b> · 한국직업능력연구원</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 2 · 연구 여정 개요(목차) ============ -->
+      <section class="slide" data-sec="0" data-title="연구 여정" data-ico="ic-route">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 오늘의 지도 · 연구 여정 개요</div>
+          <h2 class="title sm">하나의 질문에서 시작된 <span class="ul">네 걸음</span></h2>
+          <p class="sub">작은 재정지원도 효과가 있는가 — 그리고 그 효과는 어디까지 번지는가.</p>
+          <div class="journey grow">
+            <div class="jstage">
+              <span class="jdot"></span><span class="jyear">2024</span>
+              <span class="jttl">박사학위논문</span>
+              <span class="jdesc">기초지자체 패널 · 재정지원→대학기능→지역경제 (패널 GLS)</span>
+            </div>
+            <div class="jstage">
+              <span class="jdot"></span><span class="jyear">2024</span>
+              <span class="jttl">검증·게재</span>
+              <span class="jdesc">핵심 GLS 정제해 학술지 게재 · 4년제/전문대 대비 (교육재정경제연구 33(3))</span>
+            </div>
+            <div class="jstage">
+              <span class="jdot"></span><span class="jyear">2025</span>
+              <span class="jttl">공간계량 확장</span>
+              <span class="jdesc">효과가 경계를 넘는가 · 공간더빈모형(SDM) 파급효과 (34(2) 게재예정)</span>
+            </div>
+            <div class="jstage now">
+              <span class="jdot"></span><span class="jyear">2026</span>
+              <span class="jttl">서적 종합</span>
+              <span class="jdesc">하나의 여정으로 종합 · 층위·근접성·맥락 (한국 교육행정 탐구, 가제)</span>
+            </div>
+          </div>
+          <div class="figcap"><b>자료:</b> 발표자의 연구 여정 4단계(저자 작성).</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 3 · 문제의식① 이중 위기 ============ -->
+      <section class="slide" data-sec="1" data-title="이중 위기: 대학과 지역" data-ico="ic-map">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 문제의식 ① · 동반 위기</div>
+          <h2 class="title sm">대학과 지역은 <span class="circ">같은 위기</span>의 결절점</h2>
+          <div class="cards cols-3 grow stagger">
+            <div class="sk-card"><div class="stat"><span class="v">118곳 · 52%</span><span class="l">소멸위험지역 (전국 시군구의 절반) · 소멸고위험 51곳</span></div></div>
+            <div class="sk-card"><div class="stat"><span class="v">50만 → 28만</span><span class="l">만 18세 인구 (2020 → 2040 추계)</span></div></div>
+            <div class="sk-card accent"><div class="stat"><span class="v">−28.3만명</span><span class="l">대학 입학가능인원 감소 (2040 추계) · 2020~24 이미 −7.1만</span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">소멸위험지수 = 20~39세 여성 ÷ 65세 이상</span>
+            <span class="chip">전북 92.9%</span>
+            <span class="chip">부산 43.8%</span>
+            <span class="chip">수도권도 포함</span>
+            <span class="chip">인구감소지역 89개(38.9%, 2021)</span>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). 기초지방자치단체 고등교육 재정지원과 대학의 교육·연구 기능이 지역사회 경제적 발전에 미치는 영향. 충북대학교 박사학위논문. &lt;표 Ⅱ-1&gt; 재구성(원자료: 한국고용정보원, 2023:112). 입학가능인원은 대학교육연구소(2022) 추계.</div>
+          <div class="strip">소멸은 특정 지방이 아니라 <b>전국의 절반</b> — 대학의 위기와 지역의 위기는 하나로 맞물린다.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 4 · 문제의식② 기초지자체의 부상 ============ -->
+      <section class="slide cmp" data-sec="1" data-title="기초지자체 재정지원의 부상" data-ico="ic-coin">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 문제의식 ② · 작지만 급증</div>
+          <h2 class="title sm">5년 새 <span class="ul">2.9배</span> — 그러나 검증은 공백</h2>
+          <div class="media grow">
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+              <div class="chart" style="flex:1;min-height:0">
+                <div class="clab">기초지자체 고등교육 재정지원 총액 (억원)</div>
+                <svg viewBox="0 0 300 170" role="img" aria-label="기초지자체 재정지원 총액 막대차트" style="flex:1 1 0;min-height:0">
+                  <line class="c-axis" x1="45" y1="20" x2="45" y2="140" filter="url(#rough)"/>
+                  <line class="c-axis" x1="45" y1="140" x2="292" y2="140" filter="url(#rough)"/>
+                  <text class="c-tick" x="41" y="143" text-anchor="end">0</text>
+                  <rect class="c-bar alt" x="90" y="99" width="62" height="41" rx="2"/>
+                  <text class="c-val" x="121" y="93" text-anchor="middle">922.2</text>
+                  <text class="c-tick" x="121" y="155" text-anchor="middle">2016년</text>
+                  <rect class="c-bar" x="190" y="20" width="62" height="120" rx="2"/>
+                  <text class="c-val" x="221" y="14" text-anchor="middle">2,702.8</text>
+                  <text class="c-tick" x="221" y="155" text-anchor="middle">2021년</text>
+                  <text class="c-emph" x="171" y="66" text-anchor="middle">×2.9</text>
+                </svg>
+              </div>
+            </div>
+            <div class="col-txt" style="flex:0 0 40%">
+              <div class="stat"><span class="v">168 → 204개</span><span class="l">참여 기초지자체 (73.4% → 89.1%)</span></div>
+              <div class="stat"><span class="v">1.0% → 2.5%</span><span class="l">중앙정부 재정지원 대비 (경상운영비 제외)</span></div>
+              <div class="note">중앙 규모는 12조5,451억 → 15조5,967억(24.3%↑). 기초는 중앙의 1~2.5%인 '작은 돈'이지만 거의 모든 지자체가 참여.</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">시·도별 급증(’16→’21):</span>
+            <span class="chip tr">대전 901%</span><span class="chip tr">울산 595%</span><span class="chip tr">인천 594%</span>
+            <span class="chip">광주 523%</span><span class="chip">전남 435%</span><span class="chip">서울 354%</span>
+            <span class="chip">수혜 편중: 수도권 802.4억(29.7%)</span>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅱ-3&gt;·&lt;표 Ⅱ-4&gt; 재구성(원자료: 대학재정알리미, 2023.07.20).</div>
+          <div class="strip">중앙의 1~2.5%인 작은 돈이 3배 가까이 급증, 89%가 참여 — 그런데 <b>기초 수준 효과 연구는 거의 전무</b>. 오늘의 출발점.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 5 · (선택) 대학집적의 역설 ============ -->
+      <section class="slide" data-sec="1" data-title="대학집적의 역설" data-ico="ic-chart">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 문제의식 ③ · 도입 훅 (시간 조정용 · 생략 가능)</div>
+          <h2 class="title sm">대학이 많을수록 GRDP는 ↑, 고용은 <span class="circ">역설</span></h2>
+          <p class="sub">소재 대학 수별 지역경제 지표 비교(ANOVA, 2016). 단순 비교로는 '순효과'를 알 수 없다.</p>
+          <div class="grow" style="display:flex;flex-direction:column;justify-content:center">
+            <table class="rtable">
+              <thead><tr><th>지역경제 지표</th><th class="num">대학 0개</th><th class="num">1~3개</th><th class="num">4개+</th><th class="num">F</th><th>사후검정</th></tr></thead>
+              <tbody>
+                <tr class="sig"><th scope="row">1인당 GRDP(원)</th><td class="num">4,175,168</td><td class="num">6,878,029</td><td class="num">14,564,898</td><td class="num">21.12<span class="star">***</span></td><td>4개+&gt;나머지</td></tr>
+                <tr><th scope="row">고용률(%)</th><td class="num">67.1</td><td class="num">62.3</td><td class="num">59.4</td><td class="num">31.86<span class="star">***</span></td><td>0개&gt;1~3&gt;4개+</td></tr>
+                <tr><th scope="row">실업률(%)</th><td class="num">1.4</td><td class="num">2.1</td><td class="num">2.8</td><td class="num">18.45<span class="star">***</span></td><td>4개+&gt;1~3&gt;0개</td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="6">*** p&lt;.01, ** p&lt;.05, * p&lt;.1</td></tr></tfoot>
+            </table>
+            <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅲ-9&gt;~&lt;표 Ⅲ-11&gt; ANOVA 재구성. <b>주:</b> *** p&lt;.01.</div>
+          </div>
+          <div class="strip">GRDP↑ vs 고용률↓·실업률↑ — 상반된 신호. <b>왜</b> 이런 역설이 생기는지 회귀·상호작용으로 답한다.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 6 · [여정1] 연구 설계 ============ -->
+      <section class="slide" data-sec="2" data-title="연구 설계: 투입-전환-산출" data-ico="ic-route">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 1 · 박사학위논문</div>
+          <h2 class="title sm">투입 → <span class="ul">전환</span> → 산출, 그리고 '거울 구조'</h2>
+          <div class="media grow">
+            <div class="col-txt" style="flex:0 0 44%">
+              <div class="stat"><span class="v">281개 대학 · 1,405 관측</span><span class="l">2016~2020 · 기초지자체 125개 (4년제 153 + 전문대 128)</span></div>
+              <div class="chips">
+                <span class="chip tr">패널 GLS</span><span class="chip">시차 t-1 · t-2</span>
+                <span class="chip">STATA 14.1</span><span class="chip">학생 1인당 · 로그변환</span>
+              </div>
+              <div class="note"><b>이원 설계</b> — 총액 모형(RQ1~3): 대학이 받은 재정지원 <b>총액</b>(광역·중앙 통제) / 소재지 모형(RQ4~6): 대학 <b>소재지</b> 기초지자체 몫만(타 기초 추가 통제).</div>
+              <div class="chips">
+                <span class="chip">종속 3: GRDP(ln)·고용률·실업률</span>
+                <span class="chip">교육기능 6</span><span class="chip">연구기능 4</span>
+              </div>
+            </div>
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <div class="model">
+                <div class="node"><span class="nt">독립변인</span>고등교육<br>재정지원</div>
+                <svg class="marw" viewBox="0 0 40 24" filter="url(#rough)"><path d="M3 12h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M25 6l9 6-9 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="mod-wrap">
+                  <div class="node mod"><span class="nt">전환(조절·매개)</span>대학 교육·연구 기능</div>
+                  <svg class="mod-down harw" viewBox="0 0 40 24" filter="url(#rough)"><path d="M3 12h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M25 6l9 6-9 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="node dv"><span class="nt">종속변인</span>지역사회<br>경제발전</div>
+              </div>
+              <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. [그림 Ⅲ-1] 재구성(개념도 원출처: Goddard and Chatterton, 2003:27). <b>주:</b> 점선 = 조절(상호작용) 경로. 투입→전환→산출 '블랙박스' 프레임(박영한 외, 2005).</div>
+            </div>
+          </div>
+          <div class="strip">핵심은 <b>'총액 vs 소재지'</b> 거울 구조 — 누가 투자하고 누가 편익을 갖는가(귀속·스필오버).</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 7 · [여정1] 결과① 대학기능 ============ -->
+      <section class="slide cmp" data-sec="2" data-title="결과①: 재정지원 → 대학기능" data-ico="ic-chart">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 1 · 결과 ①</div>
+          <h2 class="title sm">총액은 대학 기능을 끌어올리고, 소재지는 <span class="circ">선별적</span></h2>
+          <div class="grow" style="display:flex;flex-direction:column;justify-content:flex-start;min-height:0">
+            <table class="heat">
+              <thead><tr><th style="text-align:left">교육·연구 기능 (모형2 재정지원 계수)</th><th>총액 t-1</th><th>총액 t-2</th><th>소재지 t-1</th><th>소재지 t-2</th></tr></thead>
+              <tbody>
+                <tr><td class="rl">정원내재학생충원율</td><td class="c pos s3">.207<span class="star">***</span></td><td class="c pos s3">.199<span class="star">***</span></td><td class="c pos s3">.103<span class="star">***</span></td><td class="c ns">.052 n.s.</td></tr>
+                <tr><td class="rl">학생백명당전임교원수</td><td class="c pos">.010<span class="star">**</span></td><td class="c pos">.006<span class="star">*</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">학생1인당교육비</td><td class="c pos">.007<span class="star">**</span></td><td class="c pos s3">.014<span class="star">***</span></td><td class="c ns">.000 n.s.</td><td class="c pos">.009<span class="star">**</span></td></tr>
+                <tr><td class="rl">유지취업률</td><td class="c pos">.073<span class="star">*</span></td><td class="c pos">.100<span class="star">**</span></td><td class="c pos">.088<span class="star">*</span></td><td class="c ns">−.011 n.s.</td></tr>
+                <tr><td class="rl">학업지속률</td><td class="c pos s3">.101<span class="star">***</span></td><td class="c pos s3">.074<span class="star">***</span></td><td class="c pos s3">.060<span class="star">***</span></td><td class="c pos s3">.041<span class="star">***</span></td></tr>
+                <tr><td class="rl">인구만명당석박사졸업생수</td><td class="c pos">.013<span class="star">**</span></td><td class="c pos s3">.015<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr class="hl"><td class="rl">전임교원1인당연구비(교내)</td><td class="c ns">.009 n.s.</td><td class="c pos">.023<span class="star">*</span></td><td class="c neg s3">−.063<span class="star">***</span></td><td class="c neg s3">−.071<span class="star">***</span></td></tr>
+                <tr><td class="rl">전임교원1인당연구비(교외)</td><td class="c ns">−.005 n.s.</td><td class="c ns">.009 n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">논문실적(SCI급)</td><td class="c pos">.004<span class="star">**</span></td><td class="c pos s3">.003<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">논문실적(등재지)</td><td class="c ns">.002 n.s.</td><td class="c pos s3">.009<span class="star">***</span></td><td class="c ns">—</td><td class="c pos s3">.007<span class="star">***</span></td></tr>
+              </tbody>
+            </table>
+            <div class="chips" style="margin-top:.5em">
+              <span class="chip"><span class="sw" style="background:rgba(46,125,78,.30)"></span> 정(+)·유의</span>
+              <span class="chip"><span class="sw" style="background:rgba(168,75,47,.34)"></span> 부(−)·유의</span>
+              <span class="chip"><span class="sw" style="background:rgba(59,54,49,.10)"></span> 비유의(n.s.)</span>
+              <span class="chip tr">교내 연구비: 총액 +(.023*) → 소재지 −(−.063***/−.071***) 반전</span>
+            </div>
+            <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-1&gt;~&lt;표 Ⅳ-10&gt;(총액)·&lt;표 Ⅳ-20&gt;~&lt;표 Ⅳ-29&gt;(소재지) 재구성. <b>주:</b> 모형2(통제·광역·중앙 재정지원 투입) 재정지원 계수. *** p&lt;.01, ** p&lt;.05, * p&lt;.1, n.s.=비유의.</div>
+          </div>
+          <div class="strip">교육기능은 총액에서 전부 정(+)·유의 — 그러나 소재지 <b>연구비는 음(−)으로 반전</b>. 재정의 '원천'이 경로를 바꾼다.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 8 · [여정1] 결과② 경제발전 ============ -->
+      <section class="slide" data-sec="2" data-title="결과②: 재정지원 → 지역경제" data-ico="ic-growth">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 1 · 결과 ②</div>
+          <h2 class="title sm">효과는 특히 <span class="ul">일자리</span>에서 뚜렷하다</h2>
+          <div class="media grow">
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <table class="rtable">
+                <thead><tr><th>종속변인</th><th class="num">총액 t-1</th><th class="num">총액 t-2</th><th class="num">소재지 t-1</th><th class="num">소재지 t-2</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">1인당 GRDP(ln)</th><td class="num">.006<span class="star">**</span></td><td class="num">.002 <span class="mut">n.s.</span></td><td class="num">−.003 <span class="mut">n.s.</span></td><td class="num">−.003 <span class="mut">n.s.</span></td></tr>
+                  <tr class="sig"><th scope="row">고용률(%)</th><td class="num">.108<span class="star">***</span></td><td class="num">.060<span class="star">***</span></td><td class="num">.159<span class="star">***</span></td><td class="num">.104<span class="star">***</span></td></tr>
+                  <tr class="sig"><th scope="row">실업률(%)</th><td class="num">−.025<span class="star">***</span></td><td class="num">−.015<span class="star">**</span></td><td class="num">−.024<span class="star">***</span></td><td class="num">−.010 <span class="mut">n.s.</span></td></tr>
+                </tbody>
+                <tfoot><tr><td colspan="5">*** p&lt;.01, ** p&lt;.05, * p&lt;.1 · GRDP는 총액 t-1에서만 유의</td></tr></tfoot>
+              </table>
+              <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-11&gt;~&lt;표 Ⅳ-13&gt;(총액)·&lt;표 Ⅳ-30&gt;~&lt;표 Ⅳ-32&gt;(소재지) 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+            </div>
+            <div class="col-txt" style="flex:0 0 34%">
+              <div class="stat"><span class="v">+22,482원</span><span class="l">총액 10%↑ → 1인당 GRDP (평균 37.47백만원 기준, +0.06%)</span></div>
+              <div class="note">2019→2020년 1인당 GRDP 증가분(약 57만원)의 약 4% 수준 — 작지 않다. 선행연구(이진권·김수진, 2018)도 1%↑당 0.0010~0.0017%.</div>
+            </div>
+          </div>
+          <div class="strip">고용률↑·실업률↓는 총액·소재지 모두 <b>견고</b>. '작은 돈'의 효과가 특히 일자리에서 확인된다.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 9 · [여정1] 결과③ 시너지 ============ -->
+      <section class="slide cmp" data-sec="2" data-title="결과③: 시너지(상호작용)" data-ico="ic-brain">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 1 · 결과 ③ · 블랙박스 열기 · 재정지원 × 대학기능 상호작용(총액 모형 RQ3, 유의항만)</div>
+          <h2 class="title sm">재정은 <span class="circ">어디에 쓰이느냐</span>에 따라 효과가 갈린다</h2>
+          <div class="cards cols-2 grow stagger">
+            <div class="sk-card accent">
+              <div class="lab"><span class="ic"><svg><use href="#ic-growth"/></svg></span> 강화(+) 기제 — 재정이 지나갈 때 효과 <b class="tr">커짐</b></div>
+              <div class="desc">
+                · 유지취업률 × 재정 → GRDP <b>.001**/.001***</b>, 고용률 <b>.006**/.007**</b><br>
+                · 인구만명당석박사졸업생수 × 재정 → GRDP <b>.012***/.016***</b><br>
+                · 학업지속률 × 재정 → 고용률 <b>.018**/.030***</b><br>
+                · 전임교원1인당연구비(교외) × 재정 → 고용률 <b>.018***/.016***</b>, GRDP t-2 <b>.002**</b>, 실업률 감소 강화 <b>−.006***/−.006***</b>
+              </div>
+            </div>
+            <div class="sk-card">
+              <div class="lab"><span class="ic ink"><svg><use href="#ic-chart"/></svg></span> 약화(−) 기제 — 재정이 지나갈 때 효과 <b>줄어듦</b></div>
+              <div class="desc">
+                · 전임교원1인당연구비(교내) × 재정 → 고용률 t-1 <b>−.028***</b>, GRDP t-2 <b>−.003***</b><br>
+                · 정원내재학생충원율 × 재정 → 고용률 t-2 <b>−.009**</b>, 실업률 감소효과 약화 <b>.003**/.004***</b><br>
+                <span class="ko" style="display:block;margin-top:.4em">'충원율 역설' — 재정은 충원율을 올리지만, 충원율 자체는 경제지표에 부정적(인구변화의 외생지표화).</span>
+              </div>
+            </div>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-15&gt;(GRDP)·&lt;표 Ⅳ-17&gt;(고용률)·&lt;표 Ⅳ-19&gt;(실업률) 상호작용 유의항 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+          <div class="strip">통로 = <b>유지취업률·석박사 배출·교외연구비</b>(강화) vs <b>충원율·교내연구비</b>(약화). '블랙박스'를 연 기여.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 10 · [여정2] 검증·게재 4년제 vs 전문대 ============ -->
+      <section class="slide" data-sec="3" data-title="검증·게재: 4년제 vs 전문대" data-ico="ic-book">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 2 · 학술지 게재 (교육재정경제연구 33(3))</div>
+          <h2 class="title sm">같은 돈, <span class="circ">정반대</span> 결과 — 4년제 vs 전문대</h2>
+          <div class="media grow">
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <table class="rtable" style="font-size:.66em">
+                <thead><tr><th>종속(소재지 재정지원)</th><th class="num">전체</th><th class="num">4년제</th><th class="num">전문대</th></tr></thead>
+                <tbody>
+                  <tr class="sig"><th scope="row">GRDP t-1</th><td class="num">−.003 <span class="mut">n.s.</span></td><td class="num neg">−.009<span class="star">***</span></td><td class="num pos">+.007<span class="star">***</span></td></tr>
+                  <tr class="sig"><th scope="row">GRDP t-2</th><td class="num">−.003 <span class="mut">n.s.</span></td><td class="num neg">−.007<span class="star">**</span></td><td class="num pos">+.009<span class="star">***</span></td></tr>
+                  <tr><th scope="row">고용률 t-1</th><td class="num">.159<span class="star">***</span></td><td class="num">.109<span class="star">***</span></td><td class="num">.157<span class="star">***</span></td></tr>
+                  <tr><th scope="row">고용률 t-2</th><td class="num">.104<span class="star">***</span></td><td class="num">.086<span class="star">***</span></td><td class="num">.085<span class="star">**</span></td></tr>
+                  <tr><th scope="row">실업률 t-1</th><td class="num">−.024<span class="star">***</span></td><td class="num">−.031<span class="star">***</span></td><td class="num">.002 <span class="mut">n.s.</span></td></tr>
+                  <tr class="sig"><th scope="row">실업률 t-2</th><td class="num">−.010 <span class="mut">n.s.</span></td><td class="num neg">−.015<span class="star">*</span></td><td class="num pos">+.029<span class="star">***</span></td></tr>
+                </tbody>
+                <tfoot><tr><td colspan="4">*** p&lt;.01, ** p&lt;.05, * p&lt;.1</td></tr></tfoot>
+              </table>
+              <div class="figcap"><b>자료:</b> 박동찬·나민주(2024). 기초지방자치단체 고등교육 재정지원이 지역사회 경제적 발전에 미치는 영향. 교육재정경제연구 33(3). &lt;표 7&gt;(GRDP)·&lt;표 8&gt;(고용률)·&lt;표 9&gt;(실업률) 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+            </div>
+            <div class="col-txt" style="flex:0 0 34%">
+              <div class="stat"><span class="v">47.7% vs 38.8%</span><span class="l">졸업생 정주율 — 전문대 vs 4년제</span></div>
+              <div class="note">전문대 실업률 t-2 상승(+.029***)은 비경제활동인구 → 경제활동인구 전환(분모 증가)에 따른 것 — 부정적 신호가 아님.</div>
+              <div class="figcap">정주율: 박동찬·나민주(2024). 교육재정경제연구 33(3). 본문 해석 인용.</div>
+            </div>
+          </div>
+          <div class="strip">전문대가 지역에 더 <b>남는다</b>(정주율↑) → 획일적 지원의 한계, <b>유형별 맞춤 거버넌스</b>의 근거.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 11 · [여정2→3] 전환: 남은 질문 ============ -->
+      <section class="slide" data-sec="3" data-title="남은 질문: 효과는 경계를 넘는가" data-ico="ic-route">
+        <div class="slide-inner" style="justify-content:center;gap:.9em">
+          <div class="eyebrow"><span class="dot"></span> 여정 2 → 3 · 전환점(hinge)</div>
+          <div class="bigquote" style="align-self:center">
+            <span class="qm">&ldquo;</span>
+            학위논문에서 패널 GLS 분석을 수행한 결과 재정지원의 효과는 확인할 수 있었으나, 동시에 그 효과가 대학 소재지에 국한되는지 아니면 주변 지역으로까지 <span class="circ">파급</span>되는지를 포착하지 못하는 한계가 드러났다. 학위논문 자체에서도 &lsquo;경제적 발전의 경우 공간데이터 활용 등을 통해 <span class="ul">이웃 지역</span>과의 관계를 고려한 분석 또한 수행될 필요가 있다&rsquo;는 후속 과제를 명시적으로 제기한 바 있다.
+          </div>
+          <div class="strip" style="align-self:center;max-width:34em">한 지역 <b>'안'</b>의 효과에서 → 지역 <b>'사이'</b>의 효과로.</div>
+          <div class="figcap" style="text-align:center">자료: 박동찬(2026). 한국 교육행정 탐구(가제, 미출판 원고). 4.1절.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 12 · [여정3] 공간이 말하는 것 ============ -->
+      <section class="slide" data-sec="3" data-title="공간이 말하는 것: Moran's I" data-ico="ic-map">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 3 · 공간계량 확장 (교육재정경제연구 34(2), 게재예정)</div>
+          <h2 class="title sm">경제는 지도 위 <span class="circ">옆집끼리 닮아</span> 있다</h2>
+          <div class="media grow">
+            <div class="col-txt" style="flex:0 0 47%">
+              <div class="chips">
+                <span class="chip tr">GRDP · Moran's I 0.335</span>
+                <span class="chip tr">고용률 0.476</span>
+                <span class="chip tr">실업률 0.651</span>
+              </div>
+              <p class="lead">세 지표 모두 유의한 양(+)의 공간군집(모두 p&lt;.001, 999회 순열검정) → 각 지역을 <b>섬으로 볼 수 없다</b>.</p>
+              <div class="strip" style="text-align:left"><b>Y = ρWY + Xβ + θWX + μ + ε</b></div>
+              <div class="chips">
+                <span class="chip">ρ(WY): 이웃의 경제 결과가 우리에게 번지는 정도</span>
+              </div>
+              <div class="chips">
+                <span class="chip tr">θ(WX): 이웃에 준 돈이 우리에게 번지는 정도 ← 파급효과 핵심</span>
+              </div>
+              <div class="chips">
+                <span class="chip">공간더빈모형(SDM)</span><span class="chip">고정효과(하우스만 p&lt;.001, df=25)</span>
+                <span class="chip">최근접이웃 k=4</span><span class="chip">GeoDa + STATA19</span>
+              </div>
+            </div>
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+              <div class="chart" style="flex:0 0 auto">
+                <div class="clab">개념도 — 최근접이웃 k=4 (한 기초지자체와 가장 가까운 4곳)</div>
+                <svg viewBox="0 0 260 185" role="img" aria-label="최근접이웃 개념도">
+                  <g filter="url(#rough)">
+                    <line x1="130" y1="95" x2="90" y2="68" stroke="#C05A38" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="130" y1="95" x2="176" y2="78" stroke="#C05A38" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="130" y1="95" x2="104" y2="132" stroke="#C05A38" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="130" y1="95" x2="166" y2="130" stroke="#C05A38" stroke-width="2" stroke-linecap="round"/>
+                  </g>
+                  <g fill="#3B3631" opacity=".42">
+                    <circle cx="40" cy="42" r="3"/><circle cx="212" cy="46" r="3"/><circle cx="58" cy="162" r="3"/>
+                    <circle cx="222" cy="150" r="3"/><circle cx="204" cy="108" r="3"/><circle cx="44" cy="112" r="3"/>
+                    <circle cx="120" cy="36" r="3"/><circle cx="234" cy="92" r="3"/>
+                  </g>
+                  <g fill="#C05A38">
+                    <circle cx="90" cy="68" r="4.5"/><circle cx="176" cy="78" r="4.5"/>
+                    <circle cx="104" cy="132" r="4.5"/><circle cx="166" cy="130" r="4.5"/>
+                  </g>
+                  <circle cx="130" cy="95" r="7" fill="#A84B2F"/>
+                  <text class="c-val" x="130" y="83" text-anchor="middle">우리</text>
+                  <text class="c-tick" x="182" y="74" text-anchor="start">이웃</text>
+                </svg>
+              </div>
+              <div class="figcap"><b>자료:</b> 박동찬·나민주(2025). … 교육재정경제연구 34(2), 게재예정. &lt;그림 3-1&gt; 재구성. <b>주:</b> Moran's I 모두 p&lt;.001. 지도는 단순 개념도.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 13 · [여정3] 파급효과 ★핵심 ============ -->
+      <section class="slide cmp" data-sec="3" data-title="파급효과: 경계를 넘는 효과" data-ico="ic-growth" style="font-size:1.92cqw">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 여정 3 · 클라이맥스 · 파급효과(spillover)</div>
+          <h2 class="title sm">효과는 <span class="ul">경계를 넘는다</span> — 그리고 단순하지 않다</h2>
+          <div class="media grow">
+            <div style="flex:0 0 56%;min-height:0;display:flex;flex-direction:column;justify-content:flex-start">
+              <div class="chart" style="flex:1 1 auto;min-height:0;overflow:hidden">
+                <div class="clab">고용률 — 직접효과 vs 파급효과 (재정지원 주체별)</div>
+                <svg viewBox="0 0 360 195" role="img" aria-label="고용률 직접효과 대 파급효과 양방향 막대차트" style="flex:1 1 0;min-height:0">
+                  <line class="c-zero" x1="205" y1="20" x2="205" y2="182"/>
+                  <text class="c-tick" x="205" y="192" text-anchor="middle">0</text>
+                  <!-- 주체 라벨 -->
+                  <text class="c-tick" x="6" y="47" text-anchor="start">소재지 기초</text>
+                  <text class="c-tick" x="6" y="87" text-anchor="start">타 기초</text>
+                  <text class="c-tick" x="6" y="127" text-anchor="start">광역</text>
+                  <text class="c-tick" x="6" y="167" text-anchor="start">중앙</text>
+                  <!-- 그룹1 소재지 기초 -->
+                  <rect class="c-bar" x="205" y="28" width="12" height="12" rx="2"/>
+                  <text class="c-val" x="220" y="38" text-anchor="start">+.058***</text>
+                  <rect class="c-bar alt" x="170" y="44" width="35" height="12" rx="2"/>
+                  <text class="c-val" x="166" y="54" text-anchor="end">−.177***</text>
+                  <!-- 그룹2 타 기초 -->
+                  <rect class="c-bar" x="194" y="68" width="11" height="12" rx="2"/>
+                  <text class="c-val" x="190" y="78" text-anchor="end">−.055**</text>
+                  <rect class="c-bar alt" x="121" y="84" width="84" height="12" rx="2"/>
+                  <text class="c-val" x="117" y="94" text-anchor="end">−.421***</text>
+                  <!-- 그룹3 광역 -->
+                  <rect class="c-bar" x="194" y="108" width="11" height="12" rx="2"/>
+                  <text class="c-val" x="190" y="118" text-anchor="end">−.054**</text>
+                  <rect class="c-bar alt" x="205" y="124" width="50" height="12" rx="2"/>
+                  <text class="c-val" x="258" y="134" text-anchor="start">+.248***</text>
+                  <!-- 그룹4 중앙 -->
+                  <rect class="c-bar" x="205" y="148" width="11" height="12" rx="2"/>
+                  <text class="c-val" x="219" y="158" text-anchor="start">+.056*</text>
+                  <rect class="c-bar alt" x="160" y="164" width="45" height="12" rx="2"/>
+                  <text class="c-val" x="156" y="174" text-anchor="end">−.227***</text>
+                </svg>
+                <div class="chips" style="margin-top:.3em">
+                  <span class="chip"><span class="sw" style="background:#C05A38"></span> 직접효과(x)</span>
+                  <span class="chip"><span class="sw" style="background:#3B3631"></span> 파급효과(Wx)</span>
+                  <span class="chip">직접효과 일부는 하위표본값(타기초·중앙=수도권, 광역=전체)</span>
+                </div>
+              </div>
+              <div class="figcap"><b>자료:</b> 박동찬·나민주(2025). … 교육재정경제연구 34(2), 게재예정. &lt;표 4-3&gt;(고용률) 재구성. <b>주:</b> 직접효과=회귀계수(x), 파급효과=공간가중항(Wx). *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+            </div>
+            <div class="col-txt" style="flex:1">
+              <div class="sk-card accent">
+                <div class="lab"><span class="ic"><svg><use href="#ic-map"/></svg></span> 수도권 역설 (실업률 파급)</div>
+                <div class="stat" style="margin:.15em 0"><span class="v">+.456*** vs −.071**</span><span class="l">소재지 기초 파급 — 수도권(실업↑, 부정) vs 비수도권(실업↓, 긍정)</span></div>
+                <div class="desc">타 기초 파급 수도권 <b>+.301***</b> · 공간자기상관 Rho(실업률) 수도권 <b>1.191***</b> vs 전체 <b>0.513***</b></div>
+              </div>
+              <div class="note">부호 주의 — 실업률에서 +계수는 실업↑(부정), −계수는 실업↓(긍정). 수도권만 예외적으로 인근 기초 재정지원이 우리 실업률을 높인다.</div>
+              <div class="figcap">자료: 박동찬·나민주(2025). … 교육재정경제연구 34(2), 게재예정. &lt;표 4-4&gt; 재구성.</div>
+            </div>
+          </div>
+          <div class="strip">우리 돈은 우리 고용을 늘리고(<b>+.058***</b>), 이웃 돈은 우리 고용을 줄인다(<b>−.177~−.421***</b>) — 단, 광역 파급은 긍정(<b>+.248***</b>). 개별 행정구역만으론 최적화 불가.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 14 · 거버넌스 시사점 ============ -->
+      <section class="slide cmp" data-sec="4" data-title="거버넌스 시사점" data-ico="ic-brain">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> Part 4 · 종합 · 거버넌스 함의</div>
+          <h2 class="title sm">고등교육 거버넌스는 <span class="circ">다층·초광역</span>으로 설계돼야 한다</h2>
+          <div class="cards cols-2 grow stagger">
+            <div class="sk-card"><div class="lab"><span class="big">1</span> <span class="ink">다층 거버넌스의 실증적 정당화</span></div><div class="desc">중앙·광역·기초가 각기 다른 효과·파급(직접은 소재지 기초가 고용률↑, 파급은 광역이 긍정). 기초지자체를 거버넌스의 <b>정당한 행위자</b>로 편입.</div></div>
+            <div class="sk-card accent"><div class="lab"><span class="big">2</span> <span class="ink">RISE(2025~)의 사각지대</span></div><div class="desc">현 RISE는 광역 주도. 그러나 <b>118개 소멸위험지역 대부분이 농어촌 기초지자체</b> → 광역만으론 불가. 글로컬대학30·ANCHOR(2026~)에 기초 역할 포함, 광역-기초 역할분담.</div></div>
+            <div class="sk-card"><div class="lab"><span class="big">3</span> <span class="ink">초광역 협력체계</span></div><div class="desc">파급이 부정이면 역할분담·중복투자 방지, 긍정이면 확산·공유. 사례: <b>경기 GRAND-RISE</b> 초광역 산·학·연 컨소시엄(2025), <b>강원 G-lab·강원LRS 공유대학</b>(2024, 도내 16개 대학).</div></div>
+            <div class="sk-card"><div class="lab"><span class="big">4</span> <span class="ink">법·제도와 성과관리</span></div><div class="desc">「지방대학 및 지역균형인재 육성법」은 국가·광역 책무만 규정, <b>기초지자체 명시 부재</b> → 조례·중장기 협약의 법적 근거 필요. 단기·정량 지표 탈피 → 중장기·인접 파급을 포괄하는 성과관리.</div></div>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2026). 한국 교육행정 탐구(가제, 미출판 원고). 6.2절 정책 함의 재구성. RISE·초광역 사례는 교육부 및 각 시·도 발표(2024~2025).</div>
+          <div class="strip">결론 — 작은 재정도 효과가 있고, 그 효과가 <b>경계를 넘기</b> 때문에 거버넌스는 다층적·초광역적이어야 한다.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 15 · 마무리: 남겨진 질문 ============ -->
+      <section class="slide" data-sec="5" data-title="남겨진 질문" data-ico="ic-q">
+        <div class="slide-inner" style="gap:.7em">
+          <div class="eyebrow"><span class="dot"></span> 마무리 · 남겨진 질문</div>
+          <div class="journey" style="padding:1em .4em .2em">
+            <div class="jstage"><span class="jdot"></span><span class="jyear">2024</span><span class="jttl">박사학위논문</span></div>
+            <div class="jstage"><span class="jdot"></span><span class="jyear">2024</span><span class="jttl">검증·게재</span></div>
+            <div class="jstage"><span class="jdot"></span><span class="jyear">2025</span><span class="jttl">공간계량 확장</span></div>
+            <div class="jstage now"><span class="jdot"></span><span class="jyear">2026</span><span class="jttl">서적 종합</span></div>
+          </div>
+          <div class="bigquote" style="align-self:center;margin-top:.2em">
+            <span class="qm">&ldquo;</span>
+            대학은 지역에 어떤 <span class="ul">책임</span>을 지며, 지역은 대학에 무엇을 기대하는가. 그 관계는 어떤 제도적 조건 아래서 상호 발전하는 관계가 되는가.
+          </div>
+          <div class="strip" style="align-self:center;max-width:40em"><b>규모(scale)가 아니라 층위(layer)·근접성(proximity)·맥락(context)</b>이 효과를 결정한다.</div>
+          <div class="note" style="align-self:center;max-width:40em">후속과제 — 패널 GLS와 공간더빈모형을 하나로 결합하지 못한 점. 공간패널 GLS·공간 동학 패널 모형으로의 통합이 다음 여정.</div>
+          <div class="figcap" style="text-align:center">자료: 박동찬(2026). 한국 교육행정 탐구(가제, 미출판 원고). 6.3절.</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 16 · Q&A ============ -->
+      <section class="slide" data-sec="5" data-title="Q & A" data-ico="ic-q">
+        <div class="slide-inner qa">
+          <div class="eyebrow" style="justify-content:center"><span class="dot"></span> 감사합니다</div>
+          <div class="big-t">Q &amp; A</div>
+          <div class="meta" style="justify-content:center;color:var(--muted);margin-top:1em;display:flex;gap:1.2em;align-items:center">
+            <span><b class="ink">고등교육 재정지원은 지역경제의 경계를 넘는가</b></span>
+            <span style="color:var(--line)">|</span>
+            <span>박동찬 · 한국직업능력연구원</span>
+          </div>
+          <div class="note" style="max-width:42em;margin-top:1.4em;text-align:left">
+            <b>백업 — 연구의 한계(질의 대비):</b> ① 분석기간 2016~2020 한정(COVID 이후·장기효과 미포착) · ② 공간가중행렬 k=4 민감성 · ③ 공간모형 시차 미고려·내생성(dlag 미수렴 → 미제시) · ④ 재정지원 사업의 질적 측면 미고려 · ⑤ 고용·실업률 만 15세 이상 전체 기준(연령 미분해). ※ "총효과?" 질의 시 — 본 공간모형은 직접효과·파급효과 2축으로 해석, LeSage-Pace식 총효과 분해는 제시하지 않음.
+          </div>
+          <div class="figcap" style="text-align:center">자료: 박동찬·나민주(2025). … 교육재정경제연구 34(2), 게재예정. 연구의 한계 요약.</div>
+        </div>
+      </section>
+
+
+    </div>
+    <button class="nav next" id="nextBtn" aria-label="다음"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <footer class="dotbar">
+    <div id="dots" style="display:flex;align-items:center;gap:7px"></div>
+    <span class="hint"><b>← →</b> 이동 · <b>O</b> 전체보기 · <b>F11</b> 전체화면</span>
+  </footer>
+</div><!-- /.shell -->
+
+<div class="overview" id="overview">
+  <div class="ov-head"><svg width="20" height="20"><use href="#ic-grid"/></svg><span class="t">전체 슬라이드</span><span class="s">클릭하면 해당 슬라이드로 이동 · Esc 닫기</span><div style="flex:1"></div><button class="tbtn" id="ovClose">닫기 <span class="k">Esc</span></button></div>
+  <div class="ov-body" id="ovBody"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const SECTIONS = [
+    {name:"시작"},
+    {name:"Part 1 · 연구 배경"},
+    {name:"Part 2 · 박사학위논문(여정 1)"},
+    {name:"Part 3 · 검증·공간확장(여정 2·3)"},
+    {name:"Part 4 · 종합·거버넌스 함의"},
+    {name:"마무리"},
+  ];
+  const deck = document.getElementById('deck');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+  const secNow = document.getElementById('secNow');
+  const curN = document.getElementById('curN');
+  document.getElementById('totN').textContent = total;
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+
+  const dotEls = [];
+  let curGroup = null, lastSec = -1;
+  slides.forEach((s,i)=>{
+    const sec = +s.dataset.sec;
+    if(sec !== lastSec){ curGroup = document.createElement('div'); curGroup.className='dgroup'; dotsWrap.appendChild(curGroup); lastSec = sec; }
+    const d = document.createElement('button');
+    d.className='dot'; d.title=(i+1)+'. '+(s.dataset.title||'');
+    d.addEventListener('click',()=>go(i));
+    curGroup.appendChild(d); dotEls.push(d);
+  });
+
+  const ovBody = document.getElementById('ovBody');
+  const overview = document.getElementById('overview');
+  const ovCards = [];
+  (function(){
+    let lastSec=-1, secDiv=null, grid=null;
+    slides.forEach((s,i)=>{
+      const sec = +s.dataset.sec;
+      if(sec!==lastSec){
+        secDiv=document.createElement('div'); secDiv.className='ov-sec';
+        const h=document.createElement('h4'); h.innerHTML='<span class="b"></span>'+SECTIONS[sec].name; secDiv.appendChild(h);
+        grid=document.createElement('div'); grid.className='ov-grid'; secDiv.appendChild(grid);
+        ovBody.appendChild(secDiv); lastSec=sec;
+      }
+      const c=document.createElement('button'); c.className='ov-card';
+      const ico=s.dataset.ico||'ic-doc';
+      c.innerHTML='<div class="n">'+String(i+1).padStart(2,'0')+'</div><div class="ttl">'+(s.dataset.title||'')+'</div><div class="ico"><svg><use href="#'+ico+'"/></svg></div>';
+      c.addEventListener('click',()=>{ go(i); closeOverview(); });
+      grid.appendChild(c); ovCards.push(c);
+    });
+  })();
+  function openOverview(){ overview.classList.add('show'); ovCards.forEach((c,i)=>c.classList.toggle('on',i===cur)); const o=ovCards[cur]; if(o) o.scrollIntoView({block:'center'}); }
+  function closeOverview(){ overview.classList.remove('show'); }
+  function toggleOverview(){ overview.classList.contains('show')?closeOverview():openOverview(); }
+  document.getElementById('ovBtn').addEventListener('click',toggleOverview);
+  document.getElementById('ovClose').addEventListener('click',closeOverview);
+  overview.addEventListener('click',e=>{ if(e.target===overview) closeOverview(); });
+
+  function go(i){
+    i=Math.max(0,Math.min(total-1,i));
+    if(i===cur && slides[cur].classList.contains('active')){ sync(); return; }
+    slides[cur].classList.remove('active');
+    cur=i; slides[cur].classList.add('active');
+    sync();
+  }
+  function sync(){
+    curN.textContent=cur+1;
+    secNow.textContent=SECTIONS[+slides[cur].dataset.sec].name;
+    prevBtn.disabled=cur===0; nextBtn.disabled=cur===total-1;
+    dotEls.forEach((d,i)=>{ d.classList.toggle('on',i===cur); d.classList.toggle('done',i<cur); });
+    ovCards.forEach((c,i)=>c.classList.toggle('on',i===cur));
+    if(location.hash!=='#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+  }
+  const next=()=>go(cur+1), prev=()=>go(cur-1);
+  nextBtn.addEventListener('click',next); prevBtn.addEventListener('click',prev);
+
+  document.addEventListener('keydown',e=>{
+    if(overview.classList.contains('show')){ if(e.key==='Escape'||e.key==='o'||e.key==='O') closeOverview(); return; }
+    switch(e.key){
+      case 'ArrowRight': case 'PageDown': case ' ': case 'j': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': case 'k': e.preventDefault(); prev(); break;
+      case 'Home': go(0); break;
+      case 'End': go(total-1); break;
+      case 'o': case 'O': toggleOverview(); break;
+      case 'Escape': closeOverview(); break;
+    }
+  });
+
+  function hashIndex(){ const n=parseInt((location.hash||'').replace('#',''),10); return (!isNaN(n)&&n>=1&&n<=total)?n-1:null; }
+  const initIdx=hashIndex(); if(initIdx!=null) cur=initIdx;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  sync();
+  window.addEventListener('hashchange',()=>{ const t=hashIndex(); if(t!=null&&t!==cur) go(t); });
+
+  // 터치 스와이프 (deck 영역 좌우 이동)
+  (function(){
+    let x0=null, y0=null;
+    deck.addEventListener('touchstart',e=>{ const t=e.changedTouches[0]; x0=t.clientX; y0=t.clientY; },{passive:true});
+    deck.addEventListener('touchend',e=>{
+      if(x0===null) return; const t=e.changedTouches[0];
+      const dx=t.clientX-x0, dy=t.clientY-y0;
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.5){ dx<0 ? next() : prev(); }
+      x0=y0=null;
+    },{passive:true});
+  })();
+})();
+</script>
+</body>
+</html>
