@@ -1,9 +1,29 @@
 <!doctype html>
+<!--
+================================================================
+  작업 이력 (CHANGE LOG) — 최신 수정이 항상 이 블록 최상단에 오도록 기록
+  ※ 다음 수정 시: 아래 목록 맨 위에 [YYYY-MM-DD] 블록을 새로 추가할 것
+----------------------------------------------------------------
+  [2026-07-23] Revise_260723.md 반영
+   · 상단바 브랜드: '한국교육행정학회 세대교류위원회 · 고등교육 거버넌스'
+       → '2026년 제3회 교육정책포럼' (탭 제목도 동일하게 정리)
+   · S1 표지: 부제를 포럼/발표주제로 교체, '학위논문과 후속 확장연구를 중심으로' 삭제
+   · S2: 연구수행 개요 출처 캡션 삭제
+   · S3·S4·S5·S6·S7·S8·S9: 출처 캡션에서 '충북대학교 박사학위논문' 표기 정리,
+       구분자(·→,)·줄바꿈·문구·강조색(증가=녹색/감소=적색) 수정
+   · S4: 시퀀스 라벨·note·strip 문구 수정(기초지자체 표현 명확화)
+   · S6: 연구설계 갱신 — 분석자료(KOSIS·대학알리미·대학재정알리미 결합) 추가,
+       'Lag 변수 활용(t-1·t-2)', STATA 14.1 삭제, 종속/관심변수 재정의
+   · S7: 히트맵 헤더·범례(n.s.→NSS)·강조문구 수정
+   · S10 신설: S9(총액)와 동일 구성으로 '소재지 재정지원 × 대학기능 상호작용'
+       분석결과 추가(원자료: 박동찬 2024, <표 Ⅳ-34/36/38>). 이후 슬라이드 번호 +1
+================================================================
+-->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>기초지방자치단체 고등교육 재정지원이 지역사회 경제발전에 미치는 효과와 공간적 파급효과 탐구 · 한국교육행정학회 세대교류위원회</title>
+<title>기초지방자치단체 고등교육 재정지원이 지역사회 경제발전에 미치는 효과와 공간적 파급효과 탐구 · 2026년 제3회 교육정책포럼</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -322,7 +342,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
 
 <div class="shell">
   <header class="topbar">
-    <div class="brand">한국교육행정학회 세대교류위원회 · <b>고등교육 거버넌스</b></div>
+    <div class="brand">2026년 <b>제3회 교육정책포럼</b></div>
     <div class="sec-now" id="secNow">시작</div>
     <div class="spacer"></div>
     <div class="counter"><b id="curN">1</b> / <span id="totN">00</span></div>
@@ -337,9 +357,8 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
       <!-- ============ 슬라이드 1 · 표지 ============ -->
       <section class="slide active" data-sec="0" data-title="표지" data-ico="ic-doc">
         <div class="slide-inner cover">
-          <div class="eyebrow"><span class="dot"></span> 한국교육행정학회 세대교류위원회 · 고등교육 거버넌스</div>
+          <div class="eyebrow"><span class="dot"></span> 2026년 제3회 교육정책포럼, 지방자치단체 주도 고등교육 거버넌스의 실제와 조율</div>
           <h1 class="big-t" style="font-size:2.3em">기초지방자치단체 고등교육 재정지원이<br>지역사회 경제발전에 미치는 효과와<br><span class="circ">공간적 파급효과</span> 탐구</h1>
-          <p class="sub-t">학위논문과 후속 확장연구를 중심으로</p>
           <div class="meta">
             <span><b>26.07.25</b> (SAT)</span>
             <span style="color:var(--line)">|</span>
@@ -371,7 +390,6 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
               <span class="jdesc">공간적 파급효과 검토 · 공간더빈모형(SDM)<br>(교육재정경제연구 34(2))</span>
             </div>
           </div>
-          <div class="figcap"><b>자료:</b> 발표자 연구수행 개요(저자 작성).</div>
         </div>
       </section>
 
@@ -392,7 +410,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
             <span class="chip">수도권도 포함</span>
             <span class="chip">인구감소지역 89개(38.9%, 2021)</span>
           </div>
-          <div class="figcap"><b>자료:</b> 박동찬(2024). 기초지방자치단체 고등교육 재정지원과 대학의 교육·연구 기능이 지역사회 경제적 발전에 미치는 영향. 충북대학교 박사학위논문. &lt;표 Ⅱ-1&gt; 재구성(원자료: 한국고용정보원, 2023:112). 입학가능인원은 대학교육연구소(2022) 추계.</div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). 기초지방자치단체 고등교육 재정지원과 대학의 교육·연구 기능이 지역사회 경제적 발전에 미치는 영향. &lt;표 Ⅱ-1&gt; 재구성(원자료: 한국고용정보원, 2023:112), 입학가능인원: 대학교육연구소(2022) 추계.</div>
           <div class="strip">소멸위험은 특정 지방에 국한되지 않고 <b>전국 시군구의 절반</b>에 해당, 대학의 위기와 지역의 위기가 서로 맞닿아 있음</div>
         </div>
       </section>
@@ -405,7 +423,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
           <div class="media grow">
             <div style="flex:1;min-height:0;display:flex;flex-direction:column">
               <div class="chart" style="flex:1;min-height:0">
-                <div class="clab">재정지원 유무 시퀀스 (281개 대학, 2016~2020 · 하늘색=지원 있음)</div>
+                <div class="clab">기초지자체 고등교육 재정지원 유무 시퀀스 (281개 대학, 2016~2020 · 하늘색=지원 있음)</div>
                 <img src="data:image/png;base64,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29IYrCaMllH////flsaApGxbGgOy9DasLro9wYrBygo5UP7/////9gRSAga7yf////9/e4IVkhNuT7BCUohb12ADZFX8o4B0wMDAwDAo2m3b0pCSLQTcRssS29IYGDAUwQB2yW2QFA+l4ADd5P//////fxuSV25PQMmaaFwouD3BisEqLc2KwQpuDNSO2xOwqUcDqIqgOuFgWxoDMQBhAARsS4MLwZlwBgRsI89kCNiWxpC27TZSyN2G+gJGQ8C2NAwDbk9ABNQ2NM/+//8fLgil4OA2kmX///+/PcGKARdI24ahGxVsS2OAARRV25B1bUMowgfSUL03CmgOmg68bBr4dtu2NIy4v42aRP9vS2NgwFAEA9glt0FSIJSCA3ST////////7QlWDFajZRQDpskQsC2NYbSMYmBgYGBIQ/UenQAZFf8oIAcwMDAwDHy7bVsaWkr9//////+3UbMEBtiWRiB1bkOkdyTmf6wm354Az7fb0pCS/e0JyBkeAm5PsIKoQFa5DWLD7QmY6jEAqqJthPxBHEAyBsZEtQcFbIM4FwLwqIOB27Ag25YGU3obqgtGEwW2IdsLAUhCSMz////fhtmJBaCq/P8fm8goGC6g6cDLpgFut21LGy2jKAZIxsCYqPaggG0Q50IAHnUwcBsWZNvSYEpvQ3XBaKLANmR7IQBJCIn5////2zA7sQBUlf//YxMZXoDUin8UkAkYGBgYBrbddnuCFQP2LHUbT5b4/////21p2PVBwLY01HJ2WxrCGgyTkSX///9/ewK8gLw9AT3Db0tjQChGcLZBsiSmeiyAKEX////flsaABqwm3P6PA2xDBAcSExfYloZkFkH3oKiGcWC6YDQm2Ibhfgx129JQPbUtDaHoNno0IYFtUEf835bGAAcQESwA2aRtaXB1SEwkcHuCFQMOAHPZKKAvaDrwsmkA2223J1jhiPvbSAkLG9iGNyduS0NNs9vSENZgmIws+f///9sTRssoFICiGsaB6YLRmGAbhvsx1G1LQ/XUtjSEotvo0YQEtkEd8X9bGgMcQERwg22o4YLD/NsTrBhwAGTd9AakVPyjgALAwMDAMIDttm1peNLZbexJFg62peHWuy0NSwaBC6KafHsCvAREAJja2xNQM/ztCWiKYQJQDbcnoKrHCohRdHuCFZaw2ZaGM+dvQwQHEhMT3J5gxYALYNe1LQ3NTojA7QkQX8BoVLAtDYt56ILb0hisUEz+/x9J8DZKNEHBbYhtcEVwgCmCALeRTEJSh8REArchNqADHMKjgA6g6cDLpoFqt21LY8Ad77eREhY2sA1PTtyGLfXBBVFNvj3BigGJCwEwtbcnoKbM2xPQFMMEoBpuT0BVjxUQo+j2BCssYbMtbbSMsmJII7WMgoDbE6xQlGxLQ3EMDNyeYEWCMN0A0RX/KKAMMNAG/KcGuI2SJbalMRADiEq1qCbjBbeJzQnbIFkSu/ptJDseuzn////fhlrebSPZZFwAp424AEwDjEYB2yDBgQGwKsYBbmOLptskGAAHtyeg1ANQU7elIdhI4PYErDbgEB4FdABNB17SAv2nGNxGSaLb0hiIAUSlIlST8YLbxKbMbZBMiV39NpIdj92c////bxsto4g2ABVsS2NIS0M46/YEK6u0NOJtwCFMN0Cdin8UEAQMtAH/qQFuT8CSYKkCSDD5NrE5YRsktxGtnhC4PcEKsyi7PcEKW0uDKuD2BBJdDtMAo1HBtjQGTPdjFcQJbmOLpttYbSMAbiOZtA0RUVYTbm9Lw3DQ7QlYbcAhPAroAJoOvKQF+k8xuI2UsKgLSDD5NrEpcxsi6ROlnhC4PcEKI/dABK0mEOd0EsHtCSS6HKYBRqOCbWlYiiOsgjjBbWzRdBurbQTBtjSoxbcnWDEwpE2YYAUJx9sTMIzDIvT/P05hugHqVPyjYEiD29iyBFUACSbfJjYnbKNymfj/////29IY0IDVBOKcTQYg2eUwDTAaE2C6H7s6HOA2tmi6PcGKASfAVA4B2DTBnbItDYnzH7tiKEBWNgpGwf/b2JIoVQAJJt+egCsDooFto2UUBsB0P3Z1OMBtbNF0ewLOEgRX8NyeYIVi8+0JVsgq0bj/b0+wYsABkAyhOxhtt42CUTAKRsEoGAWjYBQMDTDabhsFo2AUjIJRMApGwSgYGmC03TYKRsEoGAWjYBSMglEwNMBou20UjIJRMApGwSgYBaNgaIDRdtsoGAWjYBSMglEwCkbB0ACj7bZRMApGwSgYBaNgFIyCoQFG222jYBSMglEwCkbBKBgFQwOMtttGwSgYBaNgFIyCUTAKhgYYbbeNglEwCkbBKBgFo2AUDA0w2m4bBaNgFIyCUTAKRsEoGBpgtN02CkbBKBgFo2AUjIJRMDTAaLttFIyCUTAKRsEoGAWjYGiA0XbbKBgFo2AUjIJRMApGwdAAo+22UTAKRsEoGAWjYBSMgqEBRttto2AUjIJRMApGwSgYBUMDjLbbRsEoGAWjYBSMglEwCoYGGG23jYJRMApGwSgYBaNgFAwNMNpuGwWjYBSMglEwCkbBKBgaYLTdNgpGwSgYBaNgFIyCUTA0wGi7bRSMglEwCkbBKBgFo2BogNF22ygYBaNgFIyCUTAKRsHQAKPttlEwCkbBKBgFo2AUjIKhAUbbbaNgFIyCUTAKRsEoGAVDA4y220bBKBgFo2AUjIJRMAqGBhhtt42CUTAKRsEoGAWjYBQMDTDabhsFo2AUjIJRMApGwSgYGmC03TYKRsEoGAWjYBSMglEwNMBou20UjIJRMApGwSgYBaNgaIDRdtsoGAWjYBSMglEwCkbB0ACj7bZRMApGwSgYBaNgFIyCoQFG222jYBSMglEwCkbBKBgFQwOMtttGwSgYBaNgFIyCUTAKhgYYbbeNglEwCkbBKBgFo2AUDA0w2m4bBaNgFIyCUTAKRsEoGBpgtN02CkbBKBgFo2AUjIJRMDQAAOHbzomXm9GkAAAAAElFTkSuQmCC" alt="기초지방자치단체 고등교육 재정지원 유무 시퀀스 그래프" style="flex:1 1 0;min-height:0;width:100%;object-fit:contain;border-radius:6px">
               </div>
             </div>
@@ -418,7 +436,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
                   <div style="display:flex;align-items:center;gap:.55em"><span style="flex:0 0 2.4em;color:var(--muted)">2021</span><span style="height:1.05em;width:56%;background:#C05A38;border-radius:3px;flex:0 0 auto"></span><b class="tr">2,702.8&nbsp;&nbsp;<span style="font-family:var(--hand);font-size:1.3em">×2.9</span></b></div>
                 </div>
               </div>
-              <div class="note">중앙 규모는 12조5,451억 → 15조5,967억(24.3%↑), 기초는 그 1~2.5% 수준이나 거의 모든 지자체가 참여.</div>
+              <div class="note">중앙 규모는 12조5,451억 → 15조5,967억(24.3%↑), 기초지자체: 1~2.5% 수준이나, 다수 기초지자체 참여</div>
             </div>
           </div>
           <div class="chips">
@@ -426,8 +444,8 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
             <span class="chip tr">대전 901%</span><span class="chip tr">울산 595%</span><span class="chip tr">인천 594%</span>
             <span class="chip">광주 523%</span><span class="chip">전남 435%</span><span class="chip">서울 354%</span>
           </div>
-          <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅱ-3&gt;·&lt;표 Ⅱ-4&gt;·&lt;표 Ⅱ-6&gt; 재구성(원자료: 대학재정알리미, 2023.07.20. 중앙 대비 비중은 경상운영비 제외 기준). 시퀀스 그래프: 박동찬·나민주(2024). 교육재정경제연구, 33(3), 37-64. [그림 1].</div>
-          <div class="strip">중앙의 1~2.5% 수준인 소규모 재정지원이 3배 가까이 증가, 89%가 참여.<br>그러나 <b>기초지자체 수준의 효과 연구는 매우 부족</b>, 본 연구의 출발점</div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). &lt;표 Ⅱ-3&gt;, &lt;표 Ⅱ-4&gt;, &lt;표 Ⅱ-6&gt; 재구성(원자료: 대학재정알리미, 2023.07.20. 경상운영비 제외 기준).<br>시퀀스 그래프: 박동찬·나민주(2024). 교육재정경제연구, 33(3), 37-64. [그림 1].</div>
+          <div class="strip">중앙의 1~2.5% 수준인 소규모 재정지원이 3배 가까이 증가, 기초지자체의 89%가 참여.<br>그러나 <b>기초지자체 수준의 효과 연구는 매우 부족</b>, 본 연구의 출발점</div>
         </div>
       </section>
 
@@ -447,16 +465,16 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
               </tbody>
               <tfoot><tr><td colspan="6">*** p&lt;.01, ** p&lt;.05, * p&lt;.1</td></tr></tfoot>
             </table>
-            <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅲ-9&gt;~&lt;표 Ⅲ-11&gt; ANOVA 재구성. <b>주:</b> *** p&lt;.01.</div>
+            <div class="figcap"><b>자료:</b> 박동찬(2024). &lt;표 Ⅲ-9&gt;~&lt;표 Ⅲ-11&gt; 재구성. <b>주:</b> *** p&lt;.01.</div>
           </div>
-          <div class="strip">세 지표 모두 집단 간 유의한 차이 확인: 이후 재정지원과 대학 기능의 상호작용이 GRDP·고용률·실업률에 미치는 영향을 분석할 <b>필요성 확인</b></div>
+          <div class="strip">세 지표 모두 집단 간 유의한 차이 확인:<br>이후 재정지원과 대학 기능의 상호작용이 GRDP·고용률·실업률에 미치는 영향을 분석해 볼 <b>필요성 확인</b></div>
         </div>
       </section>
 
       <!-- ============ 슬라이드 6 · [1단계] 연구 설계 ============ -->
       <section class="slide cmp" data-sec="2" data-title="연구 설계: 투입-전환-산출" data-ico="ic-route">
         <div class="slide-inner">
-          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 박사학위논문</div>
+          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 연구모형 및 방법</div>
           <h2 class="title sm">투입 → <span class="ul">전환</span> → 산출의 피드백 관계</h2>
           <div class="media grow">
             <div class="col-txt" style="flex:0 0 44%;gap:.4em">
@@ -466,19 +484,20 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
                   <span class="chip tr">281개 대학 (4년제 153 · 전문대 128)</span>
                   <span class="chip">기초지자체 125개</span>
                   <span class="chip">2016~2020 · 관측치 1,405</span>
+                  <span class="chip">KOSIS(한국도시통계·국내이동통계 등 기초지자체 특성)·대학알리미·대학재정알리미 결합</span>
                 </div>
               </div>
               <div>
                 <div class="clab" style="font-size:.72em;color:var(--header);margin:.4em 0 .25em">분석 방법</div>
                 <div class="chips">
-                  <span class="chip tr">패널 GLS</span><span class="chip">시차 t-1 · t-2</span>
-                  <span class="chip">학생 1인당 · 로그변환</span><span class="chip">STATA 14.1</span>
+                  <span class="chip tr">패널 GLS</span><span class="chip">Lag 변수 활용(t-1·t-2)</span>
+                  <span class="chip">학생 1인당 · 로그변환</span>
                 </div>
               </div>
               <div class="note"><b>이원 설계</b>: 연구문제 1~3은 재정지원 <b>총액</b>(광역·중앙 통제), 연구문제 4~6은 대학 <b>소재지</b> 기초지자체 재정지원(타 기초 추가 통제)을 분석</div>
               <div class="chips">
-                <span class="chip">종속 3: GRDP(ln)·고용률·실업률</span>
-                <span class="chip">교육기능 6</span><span class="chip">연구기능 4</span>
+                <span class="chip">종속변수: 대학소재지 GRDP(ln)·고용률·실업률</span>
+                <span class="chip">관심변수: 대학의 교육·연구기능, 재정지원과의 상호작용항</span>
               </div>
             </div>
             <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
@@ -517,7 +536,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
                   <text x="198" y="144" text-anchor="start" style="font:700 8.5px var(--font);fill:#A84B2F">상호작용효과</text>
                 </svg>
               </div>
-              <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. [그림 Ⅲ-1] 연구 모형 재구성.</div>
+              <div class="figcap"><b>자료:</b> 박동찬(2024). [그림 Ⅲ-1] 연구 모형 재구성.</div>
             </div>
           </div>
           <div class="strip">재정투입 - 전환 - 산출의 피드백 관계(박영한 외, 2005)에서 <b>전환과정인 대학의 교육·연구 기능</b>에 주목</div>
@@ -531,7 +550,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
           <h2 class="title sm">재정지원은 <span class="circ">대학</span>에 도움이 되었는가</h2>
           <div class="grow" style="display:flex;flex-direction:column;justify-content:flex-start;min-height:0">
             <table class="heat">
-              <thead><tr><th style="text-align:left">교육·연구 기능 (모형2 재정지원 계수)</th><th>총액 t-1</th><th>총액 t-2</th><th>소재지 t-1</th><th>소재지 t-2</th></tr></thead>
+              <thead><tr><th style="text-align:left">모형2: 광역, 중앙 재정지원 통제</th><th>총액 t-1</th><th>총액 t-2</th><th>소재지 t-1</th><th>소재지 t-2</th></tr></thead>
               <tbody>
                 <tr><td class="rl">정원내재학생충원율</td><td class="c pos s3">.207<span class="star">***</span></td><td class="c pos s3">.199<span class="star">***</span></td><td class="c pos s3">.103<span class="star">***</span></td><td class="c ns">.052 n.s.</td></tr>
                 <tr><td class="rl">학생백명당전임교원수</td><td class="c pos">.010<span class="star">**</span></td><td class="c pos">.006<span class="star">*</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
@@ -548,12 +567,12 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
             <div class="chips" style="margin-top:.5em">
               <span class="chip"><span class="sw" style="background:rgba(46,125,78,.30)"></span> 유의한 정(+)</span>
               <span class="chip"><span class="sw" style="background:rgba(168,75,47,.34)"></span> 유의한 부(−)</span>
-              <span class="chip"><span class="sw" style="background:rgba(59,54,49,.10)"></span> 비유의(n.s.)</span>
-              <span class="chip tr">교내 연구비: 총액 정(+) .023*와 대비되는 소재지 음(−) −.063***/−.071***</span>
+              <span class="chip"><span class="sw" style="background:rgba(59,54,49,.10)"></span> NSS</span>
+              <span class="chip tr">교내 연구비: 총액 +.023* / 소재지 −.063***/−.071***</span>
             </div>
-            <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-1&gt;~&lt;표 Ⅳ-10&gt;(총액)·&lt;표 Ⅳ-20&gt;~&lt;표 Ⅳ-29&gt;(소재지) 재구성. <b>주:</b> 모형2(통제·광역·중앙 재정지원 투입) 재정지원 계수. *** p&lt;.01, ** p&lt;.05, * p&lt;.1, n.s.=비유의.</div>
+            <div class="figcap"><b>자료:</b> 박동찬(2024). &lt;표 Ⅳ-1&gt;~&lt;표 Ⅳ-10&gt;(총액), &lt;표 Ⅳ-20&gt;~&lt;표 Ⅳ-29&gt;(소재지) 재구성.<br><b>주:</b> 모형2(통제·광역·중앙 재정지원 투입) 재정지원 계수. *** p&lt;.01, ** p&lt;.05, * p&lt;.1</div>
           </div>
-          <div class="strip">총액은 교육기능 6개 변인 모두와 논문실적(SCI급)에 유의한 정(+)의 영향<br>소재지 재정지원은 유의한 변인이 적고, <b>교내 연구비는 총액과 대비되는 음(−)</b></div>
+          <div class="strip">총액은 교육기능 6개 변인 모두와 논문실적(SCI급)에 유의한 정(+)의 영향<br>소재지 재정지원은 유의한 변인이 상대적으로 적고, <b>교내 연구비는 총액과 대비되는 음(−)의 영향</b></div>
         </div>
       </section>
 
@@ -573,19 +592,19 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
                 </tbody>
                 <tfoot><tr><td colspan="5">*** p&lt;.01, ** p&lt;.05, * p&lt;.1 · GRDP는 총액 t-1에서만 유의</td></tr></tfoot>
               </table>
-              <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-11&gt;~&lt;표 Ⅳ-13&gt;(총액)·&lt;표 Ⅳ-30&gt;~&lt;표 Ⅳ-32&gt;(소재지) 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+              <div class="figcap"><b>자료:</b> 박동찬(2024). &lt;표 Ⅳ-11&gt;~&lt;표 Ⅳ-13&gt;(총액), &lt;표 Ⅳ-30&gt;~&lt;표 Ⅳ-32&gt;(소재지) 재구성. <b>주:</b> *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
             </div>
             <div class="col-txt" style="flex:0 0 34%">
-              <div class="stat"><span class="v">+22,482원</span><span class="l">총액 10%↑ → 1인당 GRDP (평균 37.47백만원 기준, +0.06%)</span></div>
-              <div class="note">2019→2020년 1인당 GRDP 증가분(약 57만원)의 약 4%에 해당, '결코 작은 수치로 볼 수만은 없음'(논문 표현). 선행연구(이진권·김수진, 2018): 재정지원 1%↑당 차년도 GRDP 0.0010~0.0017%↑</div>
+              <div class="stat"><span class="v">+22,482원</span><span class="l">총액 10% 증가 → 1인당 GRDP (평균 37.47백만원 기준, +0.06%)</span></div>
+              <div class="note">2019→2020년 1인당 GRDP 증가분(약 57만원)의 약 4%에 해당, '결코 작은 수치로 볼 수만은 없음'<br><span style="font-size:.9em">선행연구(이진권·김수진, 2018): 재정지원 1% 증가 → 차년도 GRDP 0.0010~0.0017% 증가</span></div>
             </div>
           </div>
-          <div class="strip">고용률↑·실업률↓ 효과는 총액·소재지 모두에서 <b>일관되게 확인</b> - GRDP는 총액 t-1에서만 유의</div>
+          <div class="strip">고등교육 재정지원의 고용률 <span style="color:#2E7D4E">증가</span>, 실업률 <span style="color:#A84B2F">감소</span> 효과는 총액·소재지 모두에서 <b>일관되게 확인</b> - GRDP는 총액 t-1에서만 유의</div>
         </div>
       </section>
 
       <!-- ============ 슬라이드 9 · [1단계] 결과③ 시너지 ============ -->
-      <section class="slide cmp" data-sec="2" data-title="결과③: 시너지(상호작용)" data-ico="ic-brain">
+      <section class="slide cmp" data-sec="2" data-title="결과③: 시너지(총액)" data-ico="ic-brain">
         <div class="slide-inner">
           <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 결과 ③ · 재정지원 × 대학기능 상호작용 (총액, 유의항만)</div>
           <h2 class="title sm">재정지원과 대학 기능의 <span class="circ">상호작용</span>: 효과의 강화와 약화</h2>
@@ -601,14 +620,41 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
                 <tr><td class="rl">정원내재학생충원율</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c neg">−.009<span class="star">**</span></td><td class="c neg">.003<span class="star">**</span></td><td class="c neg s3">.004<span class="star">***</span></td></tr>
               </tbody>
             </table>
-            <div class="note" style="margin-top:.5em">재학생 충원율: 재정지원은 충원율을 높이지만, 충원율 자체는 경제지표에 부정적 - 인구변화·사회변화의 영향을 강하게 받는 변인(논문 해석)</div>
+            <div class="note" style="margin-top:.5em">재학생 충원율: 재정지원은 충원율을 높이지만, 충원율 자체는 경제지표에 부정적 영향 - 인구변화·사회변화의 영향을 강하게 받는 변인</div>
           </div>
-          <div class="figcap"><b>자료:</b> 박동찬(2024). … 충북대학교 박사학위논문. &lt;표 Ⅳ-15&gt;(GRDP)·&lt;표 Ⅳ-17&gt;(고용률)·&lt;표 Ⅳ-19&gt;(실업률) 상호작용 유의항 재구성. <b>주:</b> 모형2 상호작용항 계수. 셀 색: 초록=효과 강화, 빨강=효과 약화(실업률은 음(−) 계수가 실업률 감소 강화를 의미), 회색=비유의. *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
-          <div class="strip"><b>유지취업률·석박사 배출·교외연구비</b>와 결합 시 효과 강화(시너지)<br><b>충원율·교내연구비</b>와 결합 시 약화: '전환과정'으로서 대학 기능의 역할을 실증적으로 확인</div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). &lt;표 Ⅳ-15&gt;(GRDP)·&lt;표 Ⅳ-17&gt;(고용률)·&lt;표 Ⅳ-19&gt;(실업률) 상호작용 유의항 재구성.<br><b>주:</b> 모형2 상호작용항 계수. *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+          <div class="strip">해당 변인이 증가할수록 고등교육 재정지원 총액이 종속변수에 미치는 영향 <b>강화</b> : 유지취업률·석박사 배출·교외연구비<br>해당 변인이 증가할수록 고등교육 재정지원 총액이 종속변수에 미치는 영향 <b>약화</b> : 충원율·교내연구비</div>
         </div>
       </section>
 
-      <!-- ============ 슬라이드 10 · [2단계] 검증·게재 4년제 vs 전문대 ============ -->
+      <!-- ============ 슬라이드 10 · [1단계] 결과③-2 · 소재지 재정지원 상호작용 (신설 2026-07-23) ============ -->
+      <section class="slide cmp" data-sec="2" data-title="결과③: 시너지(소재지)" data-ico="ic-brain">
+        <div class="slide-inner">
+          <div class="eyebrow"><span class="dot"></span> 연구 1단계 · 결과 ③ · 재정지원 × 대학기능 상호작용 (소재지, 유의항만)</div>
+          <h2 class="title sm">소재지 재정지원과 대학 기능의 <span class="circ">상호작용</span>: 효과의 강화와 약화</h2>
+          <div class="grow" style="display:flex;flex-direction:column;justify-content:center;min-height:0">
+            <table class="heat">
+              <thead><tr><th style="text-align:left">구분</th><th style="text-align:left">대학 기능 변인 (× 재정지원)</th><th>GRDP t-1</th><th>GRDP t-2</th><th>고용률 t-1</th><th>고용률 t-2</th><th>실업률 t-1</th><th>실업률 t-2</th></tr></thead>
+              <tbody>
+                <tr><td class="rl" rowspan="4" style="background:rgba(46,125,78,.12);color:#1f5c38">효과 강화 (+)</td><td class="rl">학업지속률</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c pos s3">.030<span class="star">***</span></td><td class="c pos s3">.048<span class="star">***</span></td><td class="c pos s3">−.007<span class="star">***</span></td><td class="c pos s3">−.016<span class="star">***</span></td></tr>
+                <tr><td class="rl">인구만명당석박사졸업생수</td><td class="c neg">−.009<span class="star">**</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c pos s3">−.030<span class="star">***</span></td><td class="c pos">−.022<span class="star">*</span></td></tr>
+                <tr><td class="rl">전임교원1인당연구비(교외)</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c pos s3">.018<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">논문실적(등재지)</td><td class="c pos s3">.023<span class="star">***</span></td><td class="c pos">.022<span class="star">**</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c pos s3">−.065<span class="star">***</span></td><td class="c pos">−.044<span class="star">**</span></td></tr>
+                <tr><td class="rl" rowspan="5" style="background:rgba(168,75,47,.14);color:#7a3320">효과 약화 (−)</td><td class="rl">정원내재학생충원율</td><td class="c pos">.001<span class="star">**</span></td><td class="c pos s3">.002<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c neg">.003<span class="star">**</span></td><td class="c neg s3">.004<span class="star">***</span></td></tr>
+                <tr><td class="rl">학생백명당전임교원수</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c neg s3">−.076<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+                <tr><td class="rl">유지취업률</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c neg s3">.003<span class="star">***</span></td><td class="c neg s3">.005<span class="star">***</span></td></tr>
+                <tr><td class="rl">전임교원1인당연구비(교내)</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c neg s3">−.030<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c neg">.007<span class="star">**</span></td><td class="c neg">.008<span class="star">**</span></td></tr>
+                <tr><td class="rl">논문실적(SCI급)</td><td class="c neg s3">−.049<span class="star">***</span></td><td class="c neg s3">−.059<span class="star">***</span></td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td><td class="c ns">n.s.</td></tr>
+              </tbody>
+            </table>
+            <div class="note" style="margin-top:.5em">소재지 단독 재정지원의 상호작용은 총액보다 유의한 항이 적음 - 대학이 받는 시너지의 상당 부분이 타 기초지자체 지원에서 기인(총액 vs 소재지 대비)</div>
+          </div>
+          <div class="figcap"><b>자료:</b> 박동찬(2024). &lt;표 Ⅳ-34&gt;(GRDP)·&lt;표 Ⅳ-36&gt;(고용률)·&lt;표 Ⅳ-38&gt;(실업률) 상호작용 유의항 재구성.<br><b>주:</b> 모형2 상호작용항 계수(소재지 재정지원 × 대학 기능). *** p&lt;.01, ** p&lt;.05, * p&lt;.1.</div>
+          <div class="strip">해당 변인이 증가할수록 소재지 재정지원이 종속변수에 미치는 영향 <b>강화</b> : 학업지속률·석박사 배출·교외연구비·등재지 논문<br>해당 변인이 증가할수록 소재지 재정지원이 종속변수에 미치는 영향 <b>약화</b> : 충원율·전임교원수·유지취업률·교내연구비·SCI급 논문</div>
+        </div>
+      </section>
+
+      <!-- ============ 슬라이드 11 · [2단계] 검증·게재 4년제 vs 전문대 ============ -->
       <section class="slide" data-sec="3" data-title="학교 유형별 분석: 4년제 vs 전문대" data-ico="ic-book">
         <div class="slide-inner">
           <div class="eyebrow"><span class="dot"></span> 연구 2단계 · 학교 유형별 분석 (교육재정경제연구 33(3))</div>
@@ -639,7 +685,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
         </div>
       </section>
 
-      <!-- ============ 슬라이드 11 · [2·3단계] 전환: 남은 질문 ============ -->
+      <!-- ============ 슬라이드 12 · [2·3단계] 전환: 남은 질문 ============ -->
       <section class="slide" data-sec="3" data-title="연구의 전환: 인접 지역으로의 확장" data-ico="ic-route">
         <div class="slide-inner" style="justify-content:center;gap:.9em">
           <div class="eyebrow"><span class="dot"></span> 공간 단위 분석으로의 확장</div>
@@ -652,7 +698,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
         </div>
       </section>
 
-      <!-- ============ 슬라이드 12 · [3단계] 공간이 말하는 것 ============ -->
+      <!-- ============ 슬라이드 13 · [3단계] 공간이 말하는 것 ============ -->
       <section class="slide cmp" data-sec="3" data-title="공간적 자기상관: Moran's I" data-ico="ic-map">
         <div class="slide-inner">
           <div class="eyebrow"><span class="dot"></span> 연구 3단계 · 공간계량 확장 (교육재정경제연구 34(2))</div>
@@ -697,7 +743,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
         </div>
       </section>
 
-      <!-- ============ 슬라이드 13 · [3단계] 파급효과 ★핵심 ============ -->
+      <!-- ============ 슬라이드 14 · [3단계] 파급효과 ★핵심 ============ -->
       <section class="slide cmp" data-sec="3" data-title="파급효과: 인접 지역으로의 파급" data-ico="ic-growth" style="font-size:1.92cqw">
         <div class="slide-inner">
           <div class="eyebrow"><span class="dot"></span> 연구 3단계 · 핵심 결과 · 파급효과(spillover)</div>
@@ -767,7 +813,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
         </div>
       </section>
 
-      <!-- ============ 슬라이드 14 · 거버넌스 시사점 ============ -->
+      <!-- ============ 슬라이드 15 · 거버넌스 시사점 ============ -->
       <section class="slide cmp" data-sec="4" data-title="거버넌스 시사점" data-ico="ic-brain">
         <div class="slide-inner">
           <div class="eyebrow"><span class="dot"></span> Part 4 · 종합 · 거버넌스 함의</div>
@@ -783,7 +829,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
         </div>
       </section>
 
-      <!-- ============ 슬라이드 15 · 마무리: 남겨진 질문 ============ -->
+      <!-- ============ 슬라이드 16 · 마무리: 남겨진 질문 ============ -->
       <section class="slide cmp" data-sec="5" data-title="연구 요약과 향후 과제" data-ico="ic-q">
         <div class="slide-inner" style="gap:.7em">
           <div class="eyebrow"><span class="dot"></span> 마무리 · 연구 요약과 향후 과제</div>
@@ -810,7 +856,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
         </div>
       </section>
 
-      <!-- ============ 슬라이드 16 · Q&A ============ -->
+      <!-- ============ 슬라이드 17 · Q&A ============ -->
       <section class="slide" data-sec="5" data-title="Q & A" data-ico="ic-q">
         <div class="slide-inner qa">
           <div class="eyebrow" style="justify-content:center"><span class="dot"></span> 감사합니다</div>
