@@ -7,7 +7,7 @@
 
 ## 발표자료 보기
 
-👉 **[발표자료 바로가기](Presentation_Files/High_edu_Finance_v2.HTML)** (웹 브라우저에서 열람, 16:9)
+👉 **[발표자료 바로가기](https://dongchan.github.io/Higher_Edu_Governance_PT_26.07.10/Presentation_Files/High_edu_Finance_v2.HTML)** (웹 브라우저에서 열람, 16:9)
 
 - 이동: 방향키 `←` `→` 또는 화면 좌우 버튼 · 전체보기: `O` · 전체화면: `F11`
 - 데스크톱·태블릿·모바일 브라우저 지원
