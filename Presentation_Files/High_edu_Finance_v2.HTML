@@ -53,10 +53,17 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 :fullscreen .deck-area{padding:0}
 :fullscreen .frame{border-radius:0;box-shadow:none;width:min(100cqw,177.7cqh);height:auto;max-height:100%;max-width:100vw}
 :fullscreen .topbar,:fullscreen .dotbar{background:rgba(245,242,235,.85)}
+/* 유사 전체화면(폴백): iOS Safari 등 Fullscreen API 미지원 브라우저에서 상·하단바를 접어 슬라이드 확대 */
+.pfs .dotbar{display:none}
+.pfs .deck-area{padding:0}
+.pfs .topbar{padding:5px 14px 4px;background:rgba(245,242,235,.9)}
+.pfs .frame{border-radius:0;box-shadow:none;width:min(100cqw,177.7cqh);height:auto;max-height:100%;max-width:100vw}
+.tbtn.on{border-color:var(--terra);color:var(--terra-dk);background:rgba(192,90,56,.10)}
 @media (max-width:680px){.sec-now{display:none}.hint{display:none}}
 @media (max-width:640px){.nav{width:32px;height:32px}.nav svg{width:15px;height:15px}.nav.prev{left:8px}.nav.next{right:8px}
   .topbar{gap:10px;padding:9px 14px 7px}
-  .brand{display:block;min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis}}
+  .brand{display:block;min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis}
+  .tbtn .tlab{display:none}.tbtn{padding:0 9px}}
 /* 낮은 뷰포트(휴대폰 가로모드): 상·하단 바를 압축해 슬라이드 높이 확보 */
 @media (max-height:520px){
   .topbar{padding:5px 14px 4px;gap:10px}
@@ -318,6 +325,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
   <symbol id="ic-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.7c0-1.3 1.1-2 2.5-2s2.5.8 2.5 2-1.1 1.8-2.5 1.8-2.5.6-2.5 1.9 1.1 2 2.5 2 2.5-.7 2.5-2"/></symbol>
   <symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4Z"/><path d="M9 4v13M15 6.5v13"/></symbol>
   <symbol id="ic-growth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 11l4 4 6-8"/><path d="M20 7h-4M20 7v4"/></symbol>
+  <symbol id="ic-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></symbol>
 </defs></svg>
 
 <div class="shell">
@@ -326,8 +334,9 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
     <div class="sec-now" id="secNow">시작</div>
     <div class="spacer"></div>
     <div class="counter"><b id="curN">1</b> / <span id="totN">00</span></div>
-    <button class="tbtn" id="pdfBtn" title="PDF로 저장 — 인쇄 대화상자에서 대상을 'PDF로 저장'으로 선택"><svg><use href="#ic-doc"/></svg> PDF 저장</button>
-    <button class="tbtn" id="ovBtn" title="전체 슬라이드 보기 (O)"><svg><use href="#ic-grid"/></svg> 전체보기</button>
+    <button class="tbtn" id="pdfBtn" title="PDF로 저장 — 인쇄 대화상자에서 대상을 'PDF로 저장'으로 선택"><svg><use href="#ic-doc"/></svg> <span class="tlab">PDF 저장</span></button>
+    <button class="tbtn" id="fsBtn" title="전체화면 전환 (F11)" aria-pressed="false"><svg><use href="#ic-expand"/></svg> <span class="tlab">전체화면</span></button>
+    <button class="tbtn" id="ovBtn" title="슬라이드 개요 보기 (O)"><svg><use href="#ic-grid"/></svg> <span class="tlab">슬라이드 개요보기</span></button>
   </header>
 
   <div class="deck-area">
@@ -845,7 +854,7 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
 
   <footer class="dotbar">
     <div id="dots" style="display:flex;align-items:center;gap:7px"></div>
-    <span class="hint"><b>← →</b> 이동 · <b>O</b> 전체보기 · <b>F11</b> 전체화면</span>
+    <span class="hint"><b>← →</b> 이동 · <b>O</b> 개요보기 · <b>F11</b> 전체화면</span>
   </footer>
 </div><!-- /.shell -->
 
@@ -914,6 +923,26 @@ a.sk-card:hover{transform:translateY(-2px);box-shadow:.2em .34em .6em rgba(59,54
   document.getElementById('ovClose').addEventListener('click',closeOverview);
   document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
   overview.addEventListener('click',e=>{ if(e.target===overview) closeOverview(); });
+
+  // 전체화면 전환 : 네이티브 Fullscreen API + (미지원 브라우저 폴백) 유사 전체화면 클래스
+  (function(){
+    const fsBtn=document.getElementById('fsBtn'); if(!fsBtn) return;
+    const root=document.documentElement;
+    const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement||null;
+    function nativeEnter(){ const fn=root.requestFullscreen||root.webkitRequestFullscreen||root.msRequestFullscreen; if(fn){ try{ fn.call(root); return true; }catch(e){} } return false; }
+    function nativeExit(){ const fn=document.exitFullscreen||document.webkitExitFullscreen||document.msExitFullscreen; if(fn){ try{ fn.call(document); }catch(e){} } }
+    function sync(){ const on=!!fsEl()||root.classList.contains('pfs'); fsBtn.classList.toggle('on',on); fsBtn.setAttribute('aria-pressed',on?'true':'false'); fsBtn.title=(on?'전체화면 종료':'전체화면 전환')+' (F11)'; }
+    function toggle(){
+      if(fsEl()){ nativeExit(); return; }
+      if(root.classList.contains('pfs')){ root.classList.remove('pfs'); sync(); return; }
+      if(!nativeEnter()){ root.classList.add('pfs'); sync(); }
+    }
+    fsBtn.addEventListener('click',toggle);
+    document.addEventListener('fullscreenchange',sync);
+    document.addEventListener('webkitfullscreenchange',sync);
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&root.classList.contains('pfs')){ root.classList.remove('pfs'); sync(); } });
+    sync();
+  })();
 
   function go(i){
     i=Math.max(0,Math.min(total-1,i));
