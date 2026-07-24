@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>고등교육 재정지원의 공간 파급효과 — 기초지자체 지도</title>
+<title>고등교육 재정지원의 공간 파급효과 - 기초지자체 지도</title>
 <style>/* required styles */
 
 .leaflet-pane,
@@ -838,15 +838,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   <!-- ① 공간 군집 -->
   <section class="view" id="view1">
-    <div class="viewdesc"><b>“경제는 지도 위 옆집끼리 닮아있다.”</b> 세 지표 모두 유의한
-      양(+)의 공간 자기상관 — 공간모형(SDM)이 필요한 이유.</div>
+    <div class="viewdesc">세 지표 모두 통계적으로 유의한 양(+)의 공간 자기상관: 공간모형(SDM) 활용 가능성 시사</div>
     <div class="ctl" id="indsel">
       <button data-i="e">고용률</button>
       <button data-i="u">실업률</button>
       <button data-i="g">1인당 GRDP</button>
     </div>
     <div class="card">
-      <div class="k">Moran's I — <span id="moran-name"></span></div>
+      <div class="k">Moran's I - <span id="moran-name"></span></div>
       <div class="v" id="moran-val"></div>
       <div class="d">2016~2020 패널 기준 · 999번 무작위 순열 재배치(permutation) p&lt;.001 · 값이 클수록 이웃끼리 더 닮음 (−1 ~ 1)</div>
     </div>
@@ -879,20 +878,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
       <b>실업률</b>에 미치는 파급효과(θ, Wx)의 부호가 수도권과 비수도권에서 반대로 나타납니다.</div>
     <div class="cards2">
       <div class="card">
-        <div class="k">수도권 — 인근 소재기초 지원</div>
+        <div class="k">수도권 - 인근 소재기초 지원</div>
         <div class="v coef-pos">+.456<span class="stars">***</span></div>
-        <div class="d">실업률 <b>상승</b> (역설적 결과)<br>인근 타기초 지원도 +.301***</div>
+        <div class="d">실업률 <b>상승</b><br>(역설적 결과)<br>인근 타기초 지원도 +.301***</div>
       </div>
       <div class="card">
-        <div class="k">비수도권 — 인근 소재기초 지원</div>
+        <div class="k">비수도권 - 인근 소재기초 지원</div>
         <div class="v coef-neg">−.071<span class="stars">**</span></div>
-        <div class="d">실업률 <b>하락</b> (긍정적 파급)</div>
+        <div class="d">실업률 <b>하락</b><br>(긍정적 파급)</div>
       </div>
     </div>
     <div class="card">
       <div class="k">공간 종속성 ρ (실업률 모형)</div>
       <div class="v">수도권&nbsp;1.191<span class="stars">***</span> <span style="font-size:14px;color:var(--ink-2);white-space:nowrap">vs 비수도권 .420***</span></div>
-      <div class="d">수도권일수록 이웃 실업률과 강하게 동조 — 촘촘한 노동시장 연계</div>
+      <div class="d">수도권일수록 이웃 실업률과 강하게 동조 - 촘촘한 노동시장 연계</div>
     </div>
     <div class="legend" style="margin-top:10px">
       <div class="row"><span class="sw" style="background:rgba(227,73,72,.55)"></span> 수도권 (파급 → 실업률 악화)</div>
@@ -1042,7 +1041,7 @@ D.unis.forEach((u, i) => {
     const fs = u.fs[curYear] || [];
     const rows = FS_NAMES.map((nm, k) => {
       const v = fs[k];
-      const txt = v == null ? "—" : v.toLocaleString("ko-KR", {maximumFractionDigits: 0}) + " 천원";
+      const txt = v == null ? "-" : v.toLocaleString("ko-KR", {maximumFractionDigits: 0}) + " 천원";
       return `<tr><td>${nm}</td><td>${txt}</td></tr>`;
     }).join("");
     return `<div class="pop-name">${u.n}</div>` +
@@ -1076,7 +1075,7 @@ function renderLegend1() {
     `${fmtN(brk[2])} – ${fmtN(brk[3])}`,
     `${fmtN(brk[3])} ${unit} 초과`,
   ];
-  box.innerHTML = `<div class="lt">${name} — ${curYear}년 (5분위)</div>` +
+  box.innerHTML = `<div class="lt">${name} - ${curYear}년 (5분위)</div>` +
     ramp.map((c, i) =>
       `<div class="row"><span class="sw" style="background:${c}"></span>${labels[i]}</div>`).join("") +
     `<div class="row"><span class="sw" style="background:#f0efec"></span>분석대상 외</div>`;
