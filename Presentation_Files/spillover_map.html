@@ -831,7 +831,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   <div class="tabs" id="tabs">
     <button data-v="1">① 공간 군집</button>
     <button data-v="2">② 이웃 연결망</button>
-    <button data-v="3">③ 수도권 역설</button>
+    <button data-v="3">③ 수도권/비수도권</button>
   </div>
 
   <div class="ctl" id="yearsel" style="margin-top:10px"></div>
@@ -856,7 +856,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   <!-- ② 이웃 연결망 -->
   <section class="view" id="view2">
-    <div class="viewdesc"><b>“이웃을 방정식에 넣었다.”</b> 공간가중행렬 = 거리 기준 최근접
+    <div class="viewdesc">공간가중행렬 = 거리 기준 최근접
       대학 4곳(k=4). 대학을 클릭하면 4주체 재정지원을, 마우스를 올리면 이웃 연결을 보여줍니다.</div>
     <div class="ctl">
       <label><input type="checkbox" id="cb-links" checked> 이웃 연결선(k=4)</label>
@@ -874,7 +874,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   <!-- ③ 수도권 역설 -->
   <section class="view" id="view3">
-    <div class="viewdesc"><b>“파급은 복잡하다.”</b> 인근 기초지자체의 재정지원이 우리 지역
+    <div class="viewdesc">인근 기초지자체의 재정지원이 우리 지역
       <b>실업률</b>에 미치는 파급효과(θ, Wx)의 부호가 수도권과 비수도권에서 반대로 나타납니다.</div>
     <div class="cards2">
       <div class="card">
