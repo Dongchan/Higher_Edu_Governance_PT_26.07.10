@@ -743,7 +743,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   .legend .row { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--ink-2); margin: 2px 0; }
   .legend .sw { width: 22px; height: 13px; border-radius: 3px; border: 1px solid rgba(11,11,11,0.08); flex: none; }
   .legend .dot { width: 11px; height: 11px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(11,11,11,0.18); flex: none; }
-  .legend .ln { width: 22px; height: 0; border-top: 2px solid #898781; opacity: .6; flex: none; }
+  .legend .ln { width: 22px; height: 0; border-top: 2px solid #0f9488; opacity: .85; flex: none; }
   .note { font-size: 10.5px; color: var(--muted); line-height: 1.5; margin-top: 8px; }
 
   /* stat cards */
@@ -1026,7 +1026,7 @@ const FS_NAMES = ["중앙정부", "광역지자체", "소재 기초지자체", "
 const linkLayer = L.layerGroup();
 D.links.forEach(([a, b]) => {
   L.polyline([[D.unis[a].y, D.unis[a].x], [D.unis[b].y, D.unis[b].x]],
-    { color: "#6b6a66", weight: 1.2, opacity: 0.5, interactive: false }).addTo(linkLayer);
+    { color: "#0f9488", weight: 1.2, opacity: 0.7, interactive: false }).addTo(linkLayer);
 });
 const hlLayer = L.layerGroup();
 
